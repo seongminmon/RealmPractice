@@ -10,7 +10,14 @@ import SnapKit
 
 class ToDoListViewController: UIViewController {
 
-    let tableView = UITableView()
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.id)
+        tableView.rowHeight = UITableView.automaticDimension
+        return tableView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +51,7 @@ class ToDoListViewController: UIViewController {
     }
     
     func configureView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = 80
-        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.id)
+        
     }
     
     @objc func newTodoButtonClicked() {
@@ -68,7 +72,6 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         ) as? ToDoTableViewCell else {
             return UITableViewCell()
         }
-        cell.backgroundColor = .red
         return cell
     }
     
