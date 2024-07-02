@@ -118,4 +118,14 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let title = NewToDoCellTitle.allCases[indexPath.row]
+        switch title {
+        case .closingDate:
+            let vc = ClosingDateViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
+        }
+    }
 }

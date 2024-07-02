@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class NewToDoTableViewCell: UITableViewCell {
-    static let id = "NewToDoDetailTableViewCell"
+    static let id = "NewToDoTableViewCell"
     
     let containerView: UIView = {
         let view = UIView()

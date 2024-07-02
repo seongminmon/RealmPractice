@@ -22,6 +22,7 @@
 		24B3BD9B2C33FBFC0088CDB7 /* WriteToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */; };
 		24B3BD9D2C33FF810088CDB7 /* NewToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD9C2C33FF810088CDB7 /* NewToDoTableViewCell.swift */; };
 		24B3BDA12C3401E20088CDB7 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDA02C3401E20088CDB7 /* ToDo.swift */; };
+		24B3BDA32C340B3D0088CDB7 /* ClosingDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDA22C340B3D0088CDB7 /* ClosingDateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteToDoView.swift; sourceTree = "<group>"; };
 		24B3BD9C2C33FF810088CDB7 /* NewToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoTableViewCell.swift; sourceTree = "<group>"; };
 		24B3BDA02C3401E20088CDB7 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		24B3BDA22C340B3D0088CDB7 /* ClosingDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingDateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				24B3BD982C33FB5E0088CDB7 /* NewToDoViewController.swift */,
 				24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */,
 				24B3BD9C2C33FF810088CDB7 /* NewToDoTableViewCell.swift */,
+				24B3BDA22C340B3D0088CDB7 /* ClosingDateViewController.swift */,
 			);
 			path = NewToDo;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				24B3BD9D2C33FF810088CDB7 /* NewToDoTableViewCell.swift in Sources */,
 				24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */,
 				24B3BD782C33E7370088CDB7 /* SceneDelegate.swift in Sources */,
+				24B3BDA32C340B3D0088CDB7 /* ClosingDateViewController.swift in Sources */,
 				24B3BD972C33EEEF0088CDB7 /* ToDoTableViewCell.swift in Sources */,
 				24B3BD992C33FB5E0088CDB7 /* NewToDoViewController.swift in Sources */,
 				24B3BD9B2C33FBFC0088CDB7 /* WriteToDoView.swift in Sources */,

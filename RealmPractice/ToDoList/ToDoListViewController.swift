@@ -78,6 +78,8 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         ) as? ToDoTableViewCell else {
             return UITableViewCell()
         }
+        let data = todos[indexPath.row]
+        cell.configureCell(data: data)
         return cell
     }
     
