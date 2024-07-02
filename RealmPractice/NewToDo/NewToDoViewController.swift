@@ -6,15 +6,28 @@
 //
 
 import UIKit
+import RealmSwift
+import SnapKit
+import Toast
 
-class NewToDoViewController: UIViewController {
+enum NewToDoCellTitle: String, CaseIterable {
+    case closingDate = "마감일"
+    case tag = "태그"
+    case priority = "우선 순위"
+    case addImage = "이미지 추가"
+}
+
+final class NewToDoViewController: UIViewController {
+    
+    let writeView = WriteToDoView(frame: .zero)
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(NewToDoTableViewCell.self, forCellReuseIdentifier: NewToDoTableViewCell.id)
-        tableView.register(NewToDoDetailTableViewCell.self, forCellReuseIdentifier: NewToDoDetailTableViewCell.id)
+        tableView.rowHeight = 60
+        tableView.isScrollEnabled = false
         return tableView
     }()
 
@@ -45,20 +58,40 @@ class NewToDoViewController: UIViewController {
     }
     
     @objc func cancelButtonClicked() {
-        print(#function)
+        dismiss(animated: true)
     }
     
     @objc func addButtonClicked() {
-        print(#function)
+        guard let title = writeView.titleTextField.text,
+              let contents = writeView.contentsTextField.text,
+              !title.isEmpty else {
+            self.view.makeToast("제목을 입력해주세요")
+            return
+        }
+        
+        // Realm에 추가하기
+        let realm = try! Realm()
+        let todo = ToDo(title: title, contents: contents, date: Date())
+        try! realm.write {
+            realm.add(todo)
+        }
+        dismiss(animated: true)
     }
     
     func addSubviews() {
+        view.addSubview(writeView)
         view.addSubview(tableView)
     }
     
     func configureLayout() {
+        writeView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.equalTo(200)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(writeView.snp.bottom).offset(8)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -68,45 +101,21 @@ class NewToDoViewController: UIViewController {
 }
 
 extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else {
-            return 4
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 200
-        } else {
-            return 60
-        }
+        return NewToDoCellTitle.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: NewToDoTableViewCell.id,
-                for: indexPath
-            ) as? NewToDoTableViewCell else {
-                return UITableViewCell()
-            }
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: NewToDoDetailTableViewCell.id,
-                for: indexPath
-            ) as? NewToDoDetailTableViewCell else {
-                return UITableViewCell()
-            }
-            cell.configureCell(data: "마감일")
-            return cell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: NewToDoTableViewCell.id,
+            for: indexPath
+        ) as? NewToDoTableViewCell else {
+            return UITableViewCell()
         }
+        
+        let data = NewToDoCellTitle.allCases[indexPath.row].rawValue
+        cell.configureCell(data: data)
+        return cell
     }
     
 }

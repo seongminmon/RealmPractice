@@ -66,29 +66,25 @@ final class ToDoTableViewCell: UITableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
+            make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
             make.height.equalTo(20)
         }
         
         contentsLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
+            make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
             make.height.equalTo(20)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(contentsLabel.snp.bottom).offset(4)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
+            make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
+            // TODO: - AutoLayout 오류 해결하기
             make.height.equalTo(20)
             make.bottom.equalTo(contentView.safeAreaInsets).inset(8)
         }
-        
-//        titleLabel.text = "타이틀 입니다."
-//        contentsLabel.text = "컨텐츠 라벨입니다"
-//        dateLabel.text = "2024.03.24"
-//        completeButton.backgroundColor = .red
     }
     
     @objc func completeButtonClicked() {
@@ -100,7 +96,9 @@ final class ToDoTableViewCell: UITableViewCell {
     }
 
     // vc에서 데이터 받아서 데이터 세팅하기
-    func configureCell(data: String?) {
-        
+    func configureCell(data: ToDo) {
+        titleLabel.text = data.title
+        contentsLabel.text = data.contents
+        dateLabel.text = data.closingDate?.formatted()
     }
 }

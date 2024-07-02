@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class NewToDoTableViewCell: UITableViewCell {
-    static let id = "NewToDoTableViewCell"
+final class NewToDoTableViewCell: UITableViewCell {
+    static let id = "NewToDoDetailTableViewCell"
     
     let containerView: UIView = {
         let view = UIView()
@@ -19,22 +19,17 @@ class NewToDoTableViewCell: UITableViewCell {
         return view
     }()
     
-    let titleTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "제목"
-        return textField
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15)
+        return label
     }()
     
-    let contentsTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "메모"
-        return textField
-    }()
-    
-    let separator: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray
-        return view
+    let detailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.tintColor = .gray
+        return imageView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,33 +42,27 @@ class NewToDoTableViewCell: UITableViewCell {
     }
     
     func configureView() {
-        containerView.addSubview(titleTextField)
-        containerView.addSubview(contentsTextField)
-        containerView.addSubview(separator)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(detailImageView)
         contentView.addSubview(containerView)
         
         containerView.snp.makeConstraints { make in
             make.edges.equalTo(contentView.safeAreaLayoutGuide).inset(8)
         }
         
-        titleTextField.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview().inset(8)
-            make.height.equalTo(44)
+        titleLabel.snp.makeConstraints { make in
+            make.verticalEdges.leading.equalToSuperview().inset(8)
+            make.trailing.equalTo(detailImageView.snp.leading).offset(-8)
         }
         
-        separator.snp.makeConstraints { make in
-            make.top.equalTo(titleTextField.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(4)
-            make.height.equalTo(1)
-        }
-        
-        contentsTextField.snp.makeConstraints { make in
-            make.top.equalTo(separator.snp.bottom)
-            make.bottom.horizontalEdges.equalToSuperview().inset(8)
+        detailImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(8)
+            make.size.equalTo(15)
         }
     }
 
-//    func configureCell(data: String?) {
-//        
-//    }
+    func configureCell(data: String?) {
+        titleLabel.text = data
+    }
 }

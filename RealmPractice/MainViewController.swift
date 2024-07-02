@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     lazy var newTodoButton: UIButton = {
         var config = UIButton.Configuration.plain()
@@ -41,7 +41,7 @@ class MainViewController: UIViewController {
     }
     
     func configureView() {
-        //
+        view.backgroundColor = .systemBackground
     }
     
     @objc func newTodoButtonClicked() {

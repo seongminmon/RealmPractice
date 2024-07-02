@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import RealmSwift
 import SnapKit
 
-class ToDoListViewController: UIViewController {
+final class ToDoListViewController: UIViewController {
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -18,9 +19,16 @@ class ToDoListViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
+    
+    let realm = try! Realm()
+    var todos: Results<ToDo>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        todos = realm.objects(ToDo.self)
+        print(realm.configuration.fileURL)
+        print(todos)
+        
         configureNavigationBar()
         addSubviews()
         configureLayout()
@@ -37,8 +45,7 @@ class ToDoListViewController: UIViewController {
     }
     
     @objc func newButtonClicked() {
-        print(#function)
-        // 새로운 할 일 화면으로 이동
+        // 새로운 할 일 화면 띄우기
         let vc = NewToDoViewController()
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
@@ -61,7 +68,7 @@ class ToDoListViewController: UIViewController {
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return todos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
