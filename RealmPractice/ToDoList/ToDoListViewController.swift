@@ -33,10 +33,11 @@ final class ToDoListViewController: UIViewController {
         
         notificationToken = todos?.observe { [unowned self] changes in
             switch changes {
-            case .initial(let todos):
+            case .initial:
                 self.tableView.reloadData()
                 
-            case .update(let todos, let deletions, let insertions, let modifications):
+            case .update:
+                print("UPDATE")
                 self.tableView.reloadData()
                 
 //                if deletions.count > 0 {
@@ -68,6 +69,34 @@ final class ToDoListViewController: UIViewController {
             style: .plain,
             target: self,
             action: #selector(newButtonClicked)
+        )
+        
+        // pull down 버튼 만들기
+        let total = UIAction(title: "전체") { _ in
+            print("전체")
+            self.todos = self.realm.objects(ToDo.self)
+            self.tableView.reloadData()
+        }
+        let titleSort = UIAction(title: "제목 순으로 보기") { _ in
+            print("제목 순으로 보기")
+            self.todos = self.realm.objects(ToDo.self)
+                .sorted(byKeyPath: "title", ascending: true)
+            self.tableView.reloadData()
+        }
+        let dateSort = UIAction(title: "마감일 순으로 보기") { _ in
+            print("마감일 순으로 보기")
+            self.todos = self.realm.objects(ToDo.self)
+                .sorted(byKeyPath: "closingDate", ascending: true)
+            self.tableView.reloadData()
+        }
+        let cancel = UIAction(title: "취소", attributes: .destructive) { _ in
+            print("취소")
+        }
+        let menu = UIMenu(children: [total, titleSort, dateSort, cancel])
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "ellipsis.circle"),
+            menu: menu
         )
     }
     
