@@ -79,6 +79,14 @@ final class NewToDoTableViewCell: UITableViewCell {
 
     func configureCell(data: String?, date: Date?) {
         titleLabel.text = data
-        detailLabel.text = date?.formatted()
+        detailLabel.text = dateToString(date)
+    }
+    
+    func dateToString(_ date: Date?) -> String {
+        guard let date else { return "" }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko")
+        formatter.dateFormat = "yyyy.MM.dd (E)"
+        return formatter.string(from: date)
     }
 }
