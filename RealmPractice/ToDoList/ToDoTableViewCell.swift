@@ -67,7 +67,6 @@ final class ToDoTableViewCell: UITableViewCell {
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
             make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
-            make.height.equalTo(20)
         }
         
         contentsLabel.snp.makeConstraints { make in
@@ -81,7 +80,6 @@ final class ToDoTableViewCell: UITableViewCell {
             make.top.equalTo(contentsLabel.snp.bottom).offset(4)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
             make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
-            // TODO: - AutoLayout 오류 해결하기
             make.height.equalTo(20)
             make.bottom.equalTo(contentView.safeAreaInsets).inset(8)
         }
