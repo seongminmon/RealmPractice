@@ -38,6 +38,10 @@ class ToDoListViewController: UIViewController {
     
     @objc func newButtonClicked() {
         print(#function)
+        // 새로운 할 일 화면으로 이동
+        let vc = NewToDoViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
     
     func addSubviews() {
@@ -51,13 +55,8 @@ class ToDoListViewController: UIViewController {
     }
     
     func configureView() {
-        
+        view.backgroundColor = .systemBackground
     }
-    
-    @objc func newTodoButtonClicked() {
-        print(#function)
-    }
-
 }
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {

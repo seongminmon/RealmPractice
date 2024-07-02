@@ -85,9 +85,9 @@ final class ToDoTableViewCell: UITableViewCell {
             make.bottom.equalTo(contentView.safeAreaInsets).inset(8)
         }
         
-        titleLabel.text = "타이틀 입니다."
-        contentsLabel.text = "컨텐츠 라벨입니다"
-        dateLabel.text = "2024.03.24"
+//        titleLabel.text = "타이틀 입니다."
+//        contentsLabel.text = "컨텐츠 라벨입니다"
+//        dateLabel.text = "2024.03.24"
 //        completeButton.backgroundColor = .red
     }
     
