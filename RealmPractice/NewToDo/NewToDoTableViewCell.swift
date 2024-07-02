@@ -25,6 +25,14 @@ final class NewToDoTableViewCell: UITableViewCell {
         return label
     }()
     
+    let detailLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
+        label.textAlignment = .right
+        return label
+    }()
+    
     let detailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")
@@ -43,6 +51,7 @@ final class NewToDoTableViewCell: UITableViewCell {
     
     func configureView() {
         containerView.addSubview(titleLabel)
+        containerView.addSubview(detailLabel)
         containerView.addSubview(detailImageView)
         contentView.addSubview(containerView)
         
@@ -51,7 +60,13 @@ final class NewToDoTableViewCell: UITableViewCell {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.verticalEdges.leading.equalToSuperview().inset(8)
+            make.leading.verticalEdges.equalToSuperview().inset(8)
+            make.width.equalTo(100)
+        }
+        
+        detailLabel.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview().inset(8)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(8)
             make.trailing.equalTo(detailImageView.snp.leading).offset(-8)
         }
         
@@ -62,7 +77,8 @@ final class NewToDoTableViewCell: UITableViewCell {
         }
     }
 
-    func configureCell(data: String?) {
+    func configureCell(data: String?, date: Date?) {
         titleLabel.text = data
+        detailLabel.text = date?.formatted()
     }
 }

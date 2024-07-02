@@ -8,13 +8,15 @@
 import UIKit
 
 final class ClosingDateViewController: UIViewController {
-
+    
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
         return datePicker
     }()
+    
+    var sendDate: ((Date) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +26,13 @@ final class ClosingDateViewController: UIViewController {
         configureView()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        sendDate?(datePicker.date)
+    }
+    
     func configureNavigationBar() {
-        
+        navigationItem.title = "마감일 고르기"
     }
     
     func addSubviews() {

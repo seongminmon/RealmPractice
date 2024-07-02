@@ -30,6 +30,8 @@ final class NewToDoViewController: UIViewController {
         tableView.isScrollEnabled = false
         return tableView
     }()
+    
+    var closingDate: Date?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +73,7 @@ final class NewToDoViewController: UIViewController {
         
         // Realm에 추가하기
         let realm = try! Realm()
-        let todo = ToDo(title: title, contents: contents, date: Date())
+        let todo = ToDo(title: title, contents: contents, closingDate: closingDate ,date: Date())
         try! realm.write {
             realm.add(todo)
         }
@@ -115,7 +117,7 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let data = NewToDoCellTitle.allCases[indexPath.row].rawValue
-        cell.configureCell(data: data)
+        cell.configureCell(data: data, date: closingDate)
         return cell
     }
     
@@ -124,6 +126,10 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
         switch title {
         case .closingDate:
             let vc = ClosingDateViewController()
+            vc.sendDate = { date in
+                self.closingDate = date
+                self.tableView.reloadRows(at: [indexPath], with: .none)
+            }
             navigationController?.pushViewController(vc, animated: true)
         default:
             break
