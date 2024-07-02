@@ -10,7 +10,7 @@ import RealmSwift
 import SnapKit
 
 final class ToDoListViewController: UIViewController {
-
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -22,12 +22,39 @@ final class ToDoListViewController: UIViewController {
     
     let realm = try! Realm()
     var todos: Results<ToDo>!
-
+    var notificationToken: NotificationToken?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        print(realm.configuration.fileURL)
+//        print(todos)
+        
         todos = realm.objects(ToDo.self)
-        print(realm.configuration.fileURL)
-        print(todos)
+        
+        notificationToken = todos?.observe { [unowned self] changes in
+            switch changes {
+            case .initial(let todos):
+                self.tableView.reloadData()
+                
+            case .update(let todos, let deletions, let insertions, let modifications):
+                self.tableView.reloadData()
+                
+//                if deletions.count > 0 {
+//                    deleteRow(at: deletions)
+//                }
+//                
+//                if insertions.count > 0 {
+//                    insertRow(at: insertions)
+//                }
+//                
+//                if modifications.count > 0 {
+//                    updateRow(at: modifications)
+//                }
+                
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
         
         configureNavigationBar()
         addSubviews()
@@ -64,6 +91,25 @@ final class ToDoListViewController: UIViewController {
     func configureView() {
         view.backgroundColor = .systemBackground
     }
+    
+//    func insertRow(at indexs: [Int]) {
+//        tableView.beginUpdates()
+//        let indexPaths = indexs.map { IndexPath(item: $0, section: 0) }
+//        tableView.insertRows(at: indexPaths, with: .automatic)
+//        tableView.endUpdates()
+//    }
+//    
+//    func deleteRow(at indexs: [Int]) {
+//        tableView.beginUpdates()
+//        let indexPaths = indexs.map { IndexPath(item: $0, section: 0) }
+//        tableView.deleteRows(at: indexPaths, with: .automatic)
+//        tableView.endUpdates()
+//    }
+//    
+//    func updateRow(at indexs: [Int]) {
+//        let indexPaths = indexs.map { IndexPath(item: $0, section: 0) }
+//        tableView.reloadRows(at: indexPaths, with: .automatic)
+//    }
 }
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {

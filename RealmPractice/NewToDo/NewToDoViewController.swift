@@ -75,6 +75,7 @@ final class NewToDoViewController: UIViewController {
         try! realm.write {
             realm.add(todo)
         }
+        
         dismiss(animated: true)
     }
     
