@@ -129,4 +129,13 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            try! realm.write {
+                realm.delete(todos[indexPath.row])
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
 }
