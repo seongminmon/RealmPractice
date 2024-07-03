@@ -58,21 +58,20 @@ final class ToDoTableViewCell: BaseTableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
+            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
+            make.height.equalTo(20)
         }
         
         contentsLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
-            make.height.equalTo(20)
+            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(contentsLabel.snp.bottom).offset(4)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(8)
-            make.height.equalTo(20)
+            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
             make.bottom.equalTo(contentView.safeAreaInsets).inset(8)
         }
     }
