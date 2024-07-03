@@ -85,8 +85,24 @@ final class ToDoTableViewCell: BaseTableViewCell {
     }
 
     func configureCell(data: ToDo) {
-        titleLabel.text = data.title
+        var priorityText = ""
+        if let priority = data.priority {
+            priorityText = ToDoPriority.allCases[priority].text + " "
+        }
+        titleLabel.text = priorityText + data.title
+        titleLabel.asColor(targetString: priorityText, color: .systemBlue)
+        
         contentsLabel.text = data.contents
-        dateLabel.text = data.closingDate?.dateToString()
+        
+        var dateText = ""
+        if let closingDate = data.closingDate {
+            dateText = closingDate.dateToString()
+        }
+        var tagText = ""
+        if let tag = data.tag {
+            tagText = " #" + tag
+        }
+        dateLabel.text = dateText + tagText
+        dateLabel.asColor(targetString: tagText, color: .systemBlue)
     }
 }

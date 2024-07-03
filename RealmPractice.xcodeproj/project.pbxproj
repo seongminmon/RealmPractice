@@ -29,6 +29,7 @@
 		24B3BDB12C3515E70088CDB7 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB02C3515E70088CDB7 /* Date+.swift */; };
 		24B3BDB52C351AA40088CDB7 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB42C351AA40088CDB7 /* TagViewController.swift */; };
 		24B3BDB72C351AE10088CDB7 /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB62C351AE10088CDB7 /* PriorityViewController.swift */; };
+		24B3BDB92C3537B10088CDB7 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB82C3537B10088CDB7 /* UILabel+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		24B3BDB02C3515E70088CDB7 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		24B3BDB42C351AA40088CDB7 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		24B3BDB62C351AE10088CDB7 /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
+		24B3BDB82C3537B10088CDB7 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			children = (
 				24B3BDAE2C35143C0088CDB7 /* ReuseIdentifierProtocol.swift */,
 				24B3BDB02C3515E70088CDB7 /* Date+.swift */,
+				24B3BDB82C3537B10088CDB7 /* UILabel+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */,
 				24B3BDAB2C3513CB0088CDB7 /* BaseTableViewCell.swift in Sources */,
 				24B3BD9D2C33FF810088CDB7 /* NewToDoTableViewCell.swift in Sources */,
+				24B3BDB92C3537B10088CDB7 /* UILabel+.swift in Sources */,
 				24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */,
 				24B3BDB12C3515E70088CDB7 /* Date+.swift in Sources */,
 				24B3BDB72C351AE10088CDB7 /* PriorityViewController.swift in Sources */,

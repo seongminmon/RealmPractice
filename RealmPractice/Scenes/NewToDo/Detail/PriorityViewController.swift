@@ -12,6 +12,17 @@ enum ToDoPriority: String, CaseIterable {
     case high = "높음"
     case medium = "보통"
     case low = "낮음"
+    
+    var text: String {
+        switch self {
+        case .high:
+            return "!!!"
+        case .medium:
+            return "!!"
+        case .low:
+            return "!"
+        }
+    }
 }
 
 final class PriorityViewController: BaseViewController {
