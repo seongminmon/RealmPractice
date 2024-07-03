@@ -27,14 +27,6 @@ final class ToDoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(realm.configuration.fileURL!)
-//        do {
-//            let version = try schemaVersionAtURL(realm.configuration.fileURL!)
-//            print("스키마 버전: ", version)
-//        } catch {
-//            
-//        }
-        
         todos = realm.objects(ToDo.self)
         
         notificationToken = todos?.observe { [unowned self] changes in
@@ -142,9 +134,28 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         ) as? ToDoTableViewCell else {
             return UITableViewCell()
         }
+        
         let data = todos[indexPath.row]
         cell.configureCell(data: data)
+        cell.completeButton.tag = indexPath.row
+        cell.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
         return cell
+    }
+    
+    @objc func completeButtonClicked(sender: UIButton) {
+        let target = todos[sender.tag]
+        print(target)
+        if sender.tintColor == .gray {
+            sender.tintColor = .systemBlue
+            try! realm.write {
+                target.isComplete = true
+            }
+        } else {
+            sender.tintColor = .gray
+            try! realm.write {
+                target.isComplete = false
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -154,6 +165,12 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 디테일 화면으로 이동하기
+        let vc = DetailToDoViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

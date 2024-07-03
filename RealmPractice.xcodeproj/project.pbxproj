@@ -32,6 +32,7 @@
 		24B3BDB92C3537B10088CDB7 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB82C3537B10088CDB7 /* UILabel+.swift */; };
 		24B3BDBB2C35399C0088CDB7 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDBA2C35399C0088CDB7 /* BaseCollectionViewCell.swift */; };
 		24B3BDBD2C3539FE0088CDB7 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */; };
+		24B3BDBF2C356DBC0088CDB7 /* DetailToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDBE2C356DBC0088CDB7 /* DetailToDoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		24B3BDB82C3537B10088CDB7 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		24B3BDBA2C35399C0088CDB7 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		24B3BDBE2C356DBC0088CDB7 /* DetailToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailToDoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				24B3BD942C33EE7E0088CDB7 /* ToDoListViewController.swift */,
 				24B3BD962C33EEEF0088CDB7 /* ToDoTableViewCell.swift */,
+				24B3BDBE2C356DBC0088CDB7 /* DetailToDoViewController.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				24B3BDA32C340B3D0088CDB7 /* DateViewController.swift in Sources */,
 				24B3BD972C33EEEF0088CDB7 /* ToDoTableViewCell.swift in Sources */,
 				24B3BDB52C351AA40088CDB7 /* TagViewController.swift in Sources */,
+				24B3BDBF2C356DBC0088CDB7 /* DetailToDoViewController.swift in Sources */,
 				24B3BD992C33FB5E0088CDB7 /* NewToDoViewController.swift in Sources */,
 				24B3BD9B2C33FBFC0088CDB7 /* WriteToDoView.swift in Sources */,
 			);

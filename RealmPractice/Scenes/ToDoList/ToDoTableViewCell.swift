@@ -6,18 +6,16 @@
 //
 
 import UIKit
+import RealmSwift
 import SnapKit
 
 final class ToDoTableViewCell: BaseTableViewCell {
     
-    lazy var completeButton: UIButton = {
+    let completeButton: UIButton = {
         var config = UIButton.Configuration.plain()
         config.image = UIImage(systemName: "circle.fill")
         config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        
         let button = UIButton(configuration: config)
-        button.tintColor = .gray
-        button.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -75,16 +73,10 @@ final class ToDoTableViewCell: BaseTableViewCell {
             make.bottom.equalTo(contentView.safeAreaInsets).inset(8)
         }
     }
-    
-    @objc func completeButtonClicked() {
-        if completeButton.tintColor == .gray {
-            completeButton.tintColor = .systemBlue
-        } else {
-            completeButton.tintColor = .gray
-        }
-    }
 
     func configureCell(data: ToDo) {
+        completeButton.tintColor = data.isComplete ? .systemBlue : .gray
+        
         var priorityText = ""
         if let priority = data.priority {
             priorityText = ToDoPriority.allCases[priority].text + " "

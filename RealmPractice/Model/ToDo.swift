@@ -18,6 +18,7 @@ class ToDo: Object {
     @Persisted var closingDate: Date?
     @Persisted var tag: String?
     @Persisted var priority: Int?
+    @Persisted var isComplete: Bool
     
     convenience init(
         title: String,
@@ -34,5 +35,6 @@ class ToDo: Object {
         self.tag = tag
         self.priority = priority
         self.date = date
+        self.isComplete = false
     }
 }

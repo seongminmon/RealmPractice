@@ -58,6 +58,13 @@ final class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(realm.configuration.fileURL!)
+        do {
+            let version = try schemaVersionAtURL(realm.configuration.fileURL!)
+            print("스키마 버전: ", version)
+        } catch {
+            
+        }
     }
     
     override func configureNavigationBar() {

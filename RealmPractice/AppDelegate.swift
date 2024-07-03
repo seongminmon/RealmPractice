@@ -12,9 +12,12 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let config = Realm.Configuration(schemaVersion: 1) { migration, oldSchemaVersion in
+        let config = Realm.Configuration(schemaVersion: 2) { migration, oldSchemaVersion in
             if oldSchemaVersion < 1 {
                 // tag, priority 컬럼 추가
+            }
+            if oldSchemaVersion < 2 {
+                // isComplete 컬럼 추가
             }
         }
         Realm.Configuration.defaultConfiguration = config

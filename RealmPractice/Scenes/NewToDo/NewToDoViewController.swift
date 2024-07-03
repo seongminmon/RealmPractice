@@ -31,6 +31,8 @@ final class NewToDoViewController: BaseViewController {
         return tableView
     }()
     
+    var todo: ToDo?
+    
     var closingDate: Date?
     var tag: String?
     var priority: Int?
