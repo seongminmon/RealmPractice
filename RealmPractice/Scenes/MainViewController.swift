@@ -9,6 +9,20 @@ import UIKit
 import RealmSwift
 import SnapKit
 
+struct MainCollection {
+    let description: String
+    let mainImage: UIImage
+    let background: UIColor
+    
+    static let list: [MainCollection] = [
+        MainCollection(description: "오늘", mainImage: UIImage(systemName: "calendar")!, background: .systemBlue),
+        MainCollection(description: "예정", mainImage: UIImage(systemName: "calendar.badge.plus")!, background: .systemRed),
+        MainCollection(description: "전체", mainImage: UIImage(systemName: "archivebox")!, background: .gray),
+        MainCollection(description: "깃발 표시", mainImage: UIImage(systemName: "flag.fill")!, background: .systemYellow),
+        MainCollection(description: "완료됨", mainImage: UIImage(systemName: "checkmark")!, background: .gray)
+    ]
+}
+
 final class MainViewController: BaseViewController {
     
     lazy var collectionView: UICollectionView = {
@@ -106,7 +120,7 @@ final class MainViewController: BaseViewController {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return MainCollection.list.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -116,15 +130,16 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         ) as? MainCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         let count = realm.objects(ToDo.self).count
-        cell.configureCell(count: count)
+        let data = MainCollection.list[indexPath.row]
+        cell.configureCell(count: count, data: data)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 할 일 리스트 화면 이동
         let vc = ToDoListViewController()
+        vc.naviTitle = MainCollection.list[indexPath.row].description
         navigationController?.pushViewController(vc, animated: true)
     }
 }

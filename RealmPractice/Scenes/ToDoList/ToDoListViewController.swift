@@ -20,6 +20,7 @@ final class ToDoListViewController: BaseViewController {
         return tableView
     }()
     
+    var naviTitle: String?
     let realm = try! Realm()
     var todos: Results<ToDo>!
     var notificationToken: NotificationToken?
@@ -64,6 +65,8 @@ final class ToDoListViewController: BaseViewController {
     }
     
     override func configureNavigationBar() {
+        navigationItem.title = naviTitle
+        
         // pull down 버튼 만들기
         let total = UIAction(title: "전체") { _ in
             print("전체")

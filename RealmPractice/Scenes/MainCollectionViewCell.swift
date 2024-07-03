@@ -81,15 +81,13 @@ final class MainCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        // "calendar"
-        // "flag.fill"
-        // "checkmark"
-        imageContainerView.backgroundColor = .systemBlue
-        mainImageView.image = UIImage(systemName: "calendar")
-        descriptionLabel.text = "전체"
+        //
     }
     
-    func configureCell(count: Int) {
+    func configureCell(count: Int, data: MainCollection) {
         countLabel.text = "\(count)"
+        mainImageView.image = data.mainImage
+        imageContainerView.backgroundColor = data.background
+        descriptionLabel.text = data.description
     }
 }
