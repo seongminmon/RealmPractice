@@ -18,11 +18,16 @@ final class MainCollectionViewCell: BaseCollectionViewCell {
         return view
     }()
     
+    let imageContainerView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
     let mainImageView = {
         let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.tintColor = .white
         return imageView
     }()
     
@@ -40,13 +45,9 @@ final class MainCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//    }
-    
     override func addSubviews() {
-        containerView.addSubview(mainImageView)
+        imageContainerView.addSubview(mainImageView)
+        containerView.addSubview(imageContainerView)
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(countLabel)
         contentView.addSubview(containerView)
@@ -57,27 +58,38 @@ final class MainCollectionViewCell: BaseCollectionViewCell {
             make.edges.equalTo(contentView.safeAreaLayoutGuide)
         }
         
-        mainImageView.snp.makeConstraints { make in
+        imageContainerView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(8)
             make.size.equalTo(40)
         }
         
+        mainImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(8)
+        }
+        
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(mainImageView.snp.bottom).offset(4)
-            make.leading.equalTo(mainImageView).inset(4)
+            make.top.equalTo(imageContainerView.snp.bottom).offset(4)
+            make.leading.equalTo(imageContainerView).inset(4)
             make.bottom.equalToSuperview().inset(8)
         }
         
         countLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
             make.trailing.equalToSuperview().inset(16)
-            make.leading.equalTo(mainImageView.snp.trailing).offset(-8)
+            make.leading.equalTo(imageContainerView.snp.trailing).offset(-8)
         }
     }
     
     override func configureView() {
-        mainImageView.image = UIImage(systemName: "circle.fill")
-        descriptionLabel.text = "오늘"
-        countLabel.text = "0"
+        // "calendar"
+        // "flag.fill"
+        // "checkmark"
+        imageContainerView.backgroundColor = .systemBlue
+        mainImageView.image = UIImage(systemName: "calendar")
+        descriptionLabel.text = "전체"
+    }
+    
+    func configureCell(count: Int) {
+        countLabel.text = "\(count)"
     }
 }

@@ -64,13 +64,6 @@ final class ToDoListViewController: BaseViewController {
     }
     
     override func configureNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "New",
-            style: .plain,
-            target: self,
-            action: #selector(newButtonClicked)
-        )
-        
         // pull down 버튼 만들기
         let total = UIAction(title: "전체") { _ in
             print("전체")
@@ -98,10 +91,6 @@ final class ToDoListViewController: BaseViewController {
             image: UIImage(systemName: "ellipsis.circle"),
             menu: menu
         )
-    }
-    
-    @objc func newButtonClicked() {
-        print(#function)
     }
     
     override func addSubviews() {

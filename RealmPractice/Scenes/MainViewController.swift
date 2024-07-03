@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 import SnapKit
 
 final class MainViewController: BaseViewController {
@@ -28,7 +29,19 @@ final class MainViewController: BaseViewController {
         button.addTarget(self, action: #selector(newTodoButtonClicked), for: .touchUpInside)
         return button
     }()
-
+    
+    lazy var addListButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.title = "목록 추가"
+        config.titleAlignment = .trailing
+        
+        let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(addListButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    let realm = try! Realm()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -36,11 +49,23 @@ final class MainViewController: BaseViewController {
     override func configureNavigationBar() {
         navigationItem.title = "전체"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "ellipsis.circle"), 
+            style: .plain,
+            target: self,
+            action: #selector(calendarButtonClicked)
+        )
+    }
+    
+    @objc func calendarButtonClicked() {
+        print(#function)
     }
     
     override func addSubviews() {
         view.addSubview(collectionView)
         view.addSubview(newTodoButton)
+        view.addSubview(addListButton)
     }
     
     override func configureLayout() {
@@ -54,6 +79,12 @@ final class MainViewController: BaseViewController {
             make.width.equalTo(140)
             make.height.equalTo(30)
         }
+        
+        addListButton.snp.makeConstraints { make in
+            make.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.width.equalTo(100)
+            make.height.equalTo(30)
+        }
     }
     
     override func configureView() {
@@ -65,6 +96,10 @@ final class MainViewController: BaseViewController {
         let vc = NewToDoViewController()
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
+    }
+    
+    @objc func addListButtonClicked() {
+        print(#function)
     }
     
 }
@@ -82,7 +117,14 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return UICollectionViewCell()
         }
         
-//        cell.backgroundColor = .magenta
+        let count = realm.objects(ToDo.self).count
+        cell.configureCell(count: count)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 할 일 리스트 화면 이동
+        let vc = ToDoListViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
