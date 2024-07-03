@@ -78,10 +78,12 @@ final class NewToDoTableViewCell: BaseTableViewCell {
     }
     
     func configureTag(_ tag: String?) {
-        detailLabel.text = "#" + (tag ?? "")
+        guard let tag else { return }
+        detailLabel.text = "#" + tag
     }
     
-    func configurePriority(_ priority: ToDoPriority?) {
-        detailLabel.text = priority?.rawValue
+    func configurePriority(_ priority: Int?) {
+        guard let priority else { return }
+        detailLabel.text = ToDoPriority.allCases[priority].rawValue
     }
 }

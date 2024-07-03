@@ -26,7 +26,13 @@ final class ToDoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(realm.configuration.fileURL!)
+//        print(realm.configuration.fileURL!)
+//        do {
+//            let version = try schemaVersionAtURL(realm.configuration.fileURL!)
+//            print("스키마 버전: ", version)
+//        } catch {
+//            
+//        }
         
         todos = realm.objects(ToDo.self)
         

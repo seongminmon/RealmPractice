@@ -29,11 +29,10 @@ final class PriorityViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        let data = ToDoPriority.allCases[segmentedControl.selectedSegmentIndex]
         NotificationCenter.default.post(
             name: Notification.Name("priority"),
             object: nil,
-            userInfo: [0: data]
+            userInfo: [0: segmentedControl.selectedSegmentIndex]
         )
     }
     

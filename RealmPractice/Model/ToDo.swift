@@ -10,16 +10,29 @@ import RealmSwift
 
 class ToDo: Object {
     @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var date: Date
+    
+    // 제목, 내용, 마감일, 태그, 우선 순위
     @Persisted var title: String
     @Persisted var contents: String?
     @Persisted var closingDate: Date?
-    @Persisted var date: Date
+    @Persisted var tag: String?
+    @Persisted var priority: Int?
     
-    convenience init(title: String, contents: String? = nil, closingDate: Date? = nil, date: Date) {
+    convenience init(
+        title: String,
+        contents: String?,
+        closingDate: Date?,
+        tag: String?,
+        priority: Int?,
+        date: Date
+    ) {
         self.init()
         self.title = title
         self.contents = contents
         self.closingDate = closingDate
+        self.tag = tag
+        self.priority = priority
         self.date = date
     }
 }

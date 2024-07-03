@@ -33,7 +33,7 @@ final class NewToDoViewController: BaseViewController {
     
     var closingDate: Date?
     var tag: String?
-    var priority: ToDoPriority?
+    var priority: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +78,7 @@ final class NewToDoViewController: BaseViewController {
         
         // Realm에 추가하기
         let realm = try! Realm()
-        let todo = ToDo(title: title, contents: contents, closingDate: closingDate, date: Date())
+        let todo = ToDo(title: title, contents: contents, closingDate: closingDate, tag: tag, priority: priority, date: Date())
         try! realm.write {
             realm.add(todo)
         }
@@ -112,7 +112,7 @@ final class NewToDoViewController: BaseViewController {
     }
     
     @objc func priorityNotification(notification: NSNotification) {
-        priority = notification.userInfo?[0] as? ToDoPriority
+        priority = notification.userInfo?[0] as? Int
         tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
     }
 }
