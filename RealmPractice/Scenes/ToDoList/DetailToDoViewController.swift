@@ -7,22 +7,22 @@
 
 import UIKit
 
-class DetailToDoViewController: BaseViewController {
-
-    override func configureNavigationBar() {
-        navigationItem.title = "디테일 입니다."
-    }
-    
-    override func addSubviews() {
-        
-    }
-    
-    override func configureLayout() {
-        
-    }
-    
-    override func configureView() {
-        
-    }
-
-}
+//final class DetailToDoViewController: BaseViewController {
+//
+//    override func configureNavigationBar() {
+//        navigationItem.title = "디테일 입니다."
+//    }
+//    
+//    override func addSubviews() {
+//        
+//    }
+//    
+//    override func configureLayout() {
+//        
+//    }
+//    
+//    override func configureView() {
+//        
+//    }
+//
+//}

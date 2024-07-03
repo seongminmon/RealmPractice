@@ -43,7 +43,7 @@ final class PriorityViewController: BaseViewController {
         NotificationCenter.default.post(
             name: Notification.Name("priority"),
             object: nil,
-            userInfo: [0: segmentedControl.selectedSegmentIndex]
+            userInfo: ["priority": segmentedControl.selectedSegmentIndex]
         )
     }
     

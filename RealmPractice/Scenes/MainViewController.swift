@@ -114,7 +114,7 @@ final class MainViewController: BaseViewController {
     
     @objc func newTodoButtonClicked() {
         // 새로운 할 일 화면 띄우기
-        let vc = NewToDoViewController()
+        let vc = WriteToDoViewController()
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }

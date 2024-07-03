@@ -16,11 +16,14 @@ final class WriteToDoView: UIView {
         return textField
     }()
     
-    // TODO: - TextView로 바꾸기
-    let contentsTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "메모"
-        return textField
+    lazy var contentsTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .clear
+        textView.text = textViewPlaceHolder
+        textView.textColor = .lightGray
+        textView.font = .systemFont(ofSize: 16)
+        textView.delegate = self
+        return textView
     }()
     
     let separator: UIView = {
@@ -29,11 +32,10 @@ final class WriteToDoView: UIView {
         return view
     }()
     
+    let textViewPlaceHolder = "내용"
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .darkGray
-        clipsToBounds = true
-        layer.cornerRadius = 10
         configureView()
     }
     
@@ -42,8 +44,12 @@ final class WriteToDoView: UIView {
     }
     
     func configureView() {
+        backgroundColor = .darkGray
+        clipsToBounds = true
+        layer.cornerRadius = 10
+        
         addSubview(titleTextField)
-        addSubview(contentsTextField)
+        addSubview(contentsTextView)
         addSubview(separator)
         
         titleTextField.snp.makeConstraints { make in
@@ -57,9 +63,25 @@ final class WriteToDoView: UIView {
             make.height.equalTo(1)
         }
         
-        contentsTextField.snp.makeConstraints { make in
+        contentsTextView.snp.makeConstraints { make in
             make.top.equalTo(separator.snp.bottom)
             make.bottom.horizontalEdges.equalToSuperview().inset(8)
+        }
+    }
+}
+
+extension WriteToDoView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .lightGray {
+            textView.text = nil
+            textView.textColor = .label
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = textViewPlaceHolder
+            textView.textColor = .lightGray
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  NewToDoViewController.swift
+//  WriteToDoViewController.swift
 //  RealmPractice
 //
 //  Created by 김성민 on 7/2/24.
@@ -17,7 +17,7 @@ enum NewToDoCellTitle: String, CaseIterable {
     case addImage = "이미지 추가"
 }
 
-final class NewToDoViewController: BaseViewController {
+final class WriteToDoViewController: BaseViewController {
     
     let writeView = WriteToDoView(frame: .zero)
     
@@ -25,12 +25,13 @@ final class NewToDoViewController: BaseViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(NewToDoTableViewCell.self, forCellReuseIdentifier: NewToDoTableViewCell.identifier)
+        tableView.register(WriteToDoTableViewCell.self, forCellReuseIdentifier: WriteToDoTableViewCell.identifier)
         tableView.rowHeight = 60
         tableView.isScrollEnabled = false
         return tableView
     }()
     
+    // 새로 추가일땐 todo가 nil, 수정 or 삭제 일땐 todo값 존재
     var todo: ToDo?
     
     var closingDate: Date?
@@ -49,21 +50,48 @@ final class NewToDoViewController: BaseViewController {
     }
     
     override func configureNavigationBar() {
-        navigationItem.title = "새로운 할 일"
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "취소",
-            style: .plain,
-            target: self,
-            action: #selector(cancelButtonClicked)
-        )
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "추가",
-            style: .plain,
-            target: self,
-            action: #selector(addButtonClicked)
-        )
+        if todo == nil {
+            navigationItem.title = "새로운 할 일"
+            
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "취소",
+                style: .plain,
+                target: self,
+                action: #selector(cancelButtonClicked)
+            )
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "추가",
+                style: .plain,
+                target: self,
+                action: #selector(addButtonClicked)
+            )
+        } else {
+            navigationItem.title = "할 일 수정하기"
+            
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "취소",
+                style: .plain,
+                target: self,
+                action: #selector(cancelButtonClicked)
+            )
+            
+            let updateButton = UIBarButtonItem(
+                title: "수정",
+                style: .plain,
+                target: self,
+                action: #selector(updateButtonClicked)
+            )
+            
+            let deleteButton = UIBarButtonItem(
+                title: "삭제",
+                style: .done,
+                target: self,
+                action: #selector(deleteButtonClicked)
+            )
+            deleteButton.tintColor = .systemRed
+            navigationItem.rightBarButtonItems = [updateButton, deleteButton]
+        }
     }
     
     @objc func cancelButtonClicked() {
@@ -72,7 +100,7 @@ final class NewToDoViewController: BaseViewController {
     
     @objc func addButtonClicked() {
         guard let title = writeView.titleTextField.text,
-              let contents = writeView.contentsTextField.text,
+              let contents = writeView.contentsTextView.text,
               !title.isEmpty else {
             self.view.makeToast("제목을 입력해주세요")
             return
@@ -86,6 +114,24 @@ final class NewToDoViewController: BaseViewController {
         }
         
         dismiss(animated: true)
+    }
+    
+    @objc func updateButtonClicked() {
+        print(#function)
+        // Realm 업데이트 구현
+        
+        
+        dismiss(animated: true)
+    }
+    
+    @objc func deleteButtonClicked() {
+        print(#function)
+        
+        presentAlert(title: "삭제", message: "정말 삭제하시겠습니까?", actionTitle: "삭제") { _ in
+            // Realm 삭제 구현
+            
+            self.dismiss(animated: true)
+        }
     }
     
     override func addSubviews() {
@@ -106,7 +152,10 @@ final class NewToDoViewController: BaseViewController {
     }
     
     override func configureView() {
-        view.backgroundColor = .systemBackground
+        if let todo {
+            writeView.titleTextField.text = todo.title
+            writeView.contentsTextView.text = todo.contents
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -114,21 +163,21 @@ final class NewToDoViewController: BaseViewController {
     }
     
     @objc func priorityNotification(notification: NSNotification) {
-        priority = notification.userInfo?[0] as? Int
+        priority = notification.userInfo?["priority"] as? Int
         tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
     }
 }
 
-extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
+extension WriteToDoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return NewToDoCellTitle.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: NewToDoTableViewCell.identifier,
+            withIdentifier: WriteToDoTableViewCell.identifier,
             for: indexPath
-        ) as? NewToDoTableViewCell else {
+        ) as? WriteToDoTableViewCell else {
             return UITableViewCell()
         }
         
@@ -136,15 +185,30 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
         let title = option.rawValue
         cell.configureTitle(title)
         
-        switch option {
-        case .closingDate:
-            cell.configureDate(closingDate)
-        case .tag:
-            cell.configureTag(tag)
-        case .priority:
-            cell.configurePriority(priority)
-        default:
-            break
+        if let todo {
+            // 수정/삭제 일때
+            switch option {
+            case .closingDate:
+                cell.configureDate(todo.closingDate)
+            case .tag:
+                cell.configureTag(todo.tag)
+            case .priority:
+                cell.configurePriority(todo.priority)
+            default:
+                break
+            }
+        } else {
+            // 추가 일때
+            switch option {
+            case .closingDate:
+                cell.configureDate(closingDate)
+            case .tag:
+                cell.configureTag(tag)
+            case .priority:
+                cell.configurePriority(priority)
+            default:
+                break
+            }
         }
         
         return cell
@@ -172,13 +236,14 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
             // 3. notification
             let vc = PriorityViewController()
             navigationController?.pushViewController(vc, animated: true)
+            
         default:
             break
         }
     }
 }
 
-extension NewToDoViewController: TagDelegate {
+extension WriteToDoViewController: TagDelegate {
     func sendTag(data: String) {
         tag = data
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)

@@ -12,7 +12,7 @@ class ToDo: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var date: Date
     
-    // 제목, 내용, 마감일, 태그, 우선 순위
+    // 제목, 내용, 마감일, 태그, 우선 순위, 완료 여부
     @Persisted var title: String
     @Persisted var contents: String?
     @Persisted var closingDate: Date?

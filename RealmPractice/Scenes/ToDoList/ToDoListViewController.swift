@@ -144,18 +144,10 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func completeButtonClicked(sender: UIButton) {
         let target = todos[sender.tag]
-        print(target)
-        if sender.tintColor == .gray {
-            sender.tintColor = .systemBlue
-            try! realm.write {
-                target.isComplete = true
-            }
-        } else {
-            sender.tintColor = .gray
-            try! realm.write {
-                target.isComplete = false
-            }
+        try! realm.write {
+            target.isComplete.toggle()
         }
+        sender.tintColor = target.isComplete ? .systemBlue : .gray
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -168,9 +160,10 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 디테일 화면으로 이동하기
-        let vc = DetailToDoViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        // 수정 화면으로 이동하기
+        let vc = WriteToDoViewController()
+        vc.todo = todos[indexPath.row]
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
-    
 }

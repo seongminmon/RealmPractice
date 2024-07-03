@@ -1,5 +1,5 @@
 //
-//  NewToDoTableViewCell.swift
+//  WriteToDoTableViewCell.swift
 //  RealmPractice
 //
 //  Created by 김성민 on 7/2/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class NewToDoTableViewCell: BaseTableViewCell {
+final class WriteToDoTableViewCell: BaseTableViewCell {
     
     let containerView: UIView = {
         let view = UIView()

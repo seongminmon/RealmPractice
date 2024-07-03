@@ -18,9 +18,9 @@
 		24B3BD932C33EA0D0088CDB7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 24B3BD922C33EA0D0088CDB7 /* SnapKit */; };
 		24B3BD952C33EE7E0088CDB7 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD942C33EE7E0088CDB7 /* ToDoListViewController.swift */; };
 		24B3BD972C33EEEF0088CDB7 /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD962C33EEEF0088CDB7 /* ToDoTableViewCell.swift */; };
-		24B3BD992C33FB5E0088CDB7 /* NewToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD982C33FB5E0088CDB7 /* NewToDoViewController.swift */; };
+		24B3BD992C33FB5E0088CDB7 /* WriteToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD982C33FB5E0088CDB7 /* WriteToDoViewController.swift */; };
 		24B3BD9B2C33FBFC0088CDB7 /* WriteToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */; };
-		24B3BD9D2C33FF810088CDB7 /* NewToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD9C2C33FF810088CDB7 /* NewToDoTableViewCell.swift */; };
+		24B3BD9D2C33FF810088CDB7 /* WriteToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD9C2C33FF810088CDB7 /* WriteToDoTableViewCell.swift */; };
 		24B3BDA12C3401E20088CDB7 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDA02C3401E20088CDB7 /* ToDo.swift */; };
 		24B3BDA32C340B3D0088CDB7 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDA22C340B3D0088CDB7 /* DateViewController.swift */; };
 		24B3BDA82C3512AE0088CDB7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDA72C3512AE0088CDB7 /* BaseViewController.swift */; };
@@ -46,9 +46,9 @@
 		24B3BD892C33E7910088CDB7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		24B3BD942C33EE7E0088CDB7 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		24B3BD962C33EEEF0088CDB7 /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
-		24B3BD982C33FB5E0088CDB7 /* NewToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoViewController.swift; sourceTree = "<group>"; };
+		24B3BD982C33FB5E0088CDB7 /* WriteToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteToDoViewController.swift; sourceTree = "<group>"; };
 		24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteToDoView.swift; sourceTree = "<group>"; };
-		24B3BD9C2C33FF810088CDB7 /* NewToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoTableViewCell.swift; sourceTree = "<group>"; };
+		24B3BD9C2C33FF810088CDB7 /* WriteToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteToDoTableViewCell.swift; sourceTree = "<group>"; };
 		24B3BDA02C3401E20088CDB7 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		24B3BDA22C340B3D0088CDB7 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		24B3BDA72C3512AE0088CDB7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -110,15 +110,15 @@
 			path = RealmPractice;
 			sourceTree = "<group>";
 		};
-		24B3BD9E2C3401A30088CDB7 /* NewToDo */ = {
+		24B3BD9E2C3401A30088CDB7 /* WriteToDo */ = {
 			isa = PBXGroup;
 			children = (
-				24B3BD982C33FB5E0088CDB7 /* NewToDoViewController.swift */,
+				24B3BD982C33FB5E0088CDB7 /* WriteToDoViewController.swift */,
 				24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */,
-				24B3BD9C2C33FF810088CDB7 /* NewToDoTableViewCell.swift */,
+				24B3BD9C2C33FF810088CDB7 /* WriteToDoTableViewCell.swift */,
 				24B3BDB32C351A720088CDB7 /* Detail */,
 			);
-			path = NewToDo;
+			path = WriteToDo;
 			sourceTree = "<group>";
 		};
 		24B3BD9F2C3401AB0088CDB7 /* ToDoList */ = {
@@ -155,7 +155,7 @@
 				24B3BD792C33E7370088CDB7 /* MainViewController.swift */,
 				24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */,
 				24B3BD9F2C3401AB0088CDB7 /* ToDoList */,
-				24B3BD9E2C3401A30088CDB7 /* NewToDo */,
+				24B3BD9E2C3401A30088CDB7 /* WriteToDo */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -266,7 +266,7 @@
 				24B3BDA82C3512AE0088CDB7 /* BaseViewController.swift in Sources */,
 				24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */,
 				24B3BDAB2C3513CB0088CDB7 /* BaseTableViewCell.swift in Sources */,
-				24B3BD9D2C33FF810088CDB7 /* NewToDoTableViewCell.swift in Sources */,
+				24B3BD9D2C33FF810088CDB7 /* WriteToDoTableViewCell.swift in Sources */,
 				24B3BDB92C3537B10088CDB7 /* UILabel+.swift in Sources */,
 				24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */,
 				24B3BDB12C3515E70088CDB7 /* Date+.swift in Sources */,
@@ -279,7 +279,7 @@
 				24B3BD972C33EEEF0088CDB7 /* ToDoTableViewCell.swift in Sources */,
 				24B3BDB52C351AA40088CDB7 /* TagViewController.swift in Sources */,
 				24B3BDBF2C356DBC0088CDB7 /* DetailToDoViewController.swift in Sources */,
-				24B3BD992C33FB5E0088CDB7 /* NewToDoViewController.swift in Sources */,
+				24B3BD992C33FB5E0088CDB7 /* WriteToDoViewController.swift in Sources */,
 				24B3BD9B2C33FBFC0088CDB7 /* WriteToDoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
