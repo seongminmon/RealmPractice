@@ -1,5 +1,5 @@
 //
-//  ClosingDateViewController.swift
+//  DateViewController.swift
 //  RealmPractice
 //
 //  Created by 김성민 on 7/2/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ClosingDateViewController: BaseViewController {
+final class DateViewController: BaseViewController {
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()

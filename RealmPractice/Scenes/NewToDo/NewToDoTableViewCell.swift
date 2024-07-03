@@ -27,7 +27,7 @@ final class NewToDoTableViewCell: BaseTableViewCell {
     let detailLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
+        label.textColor = .lightGray
         label.textAlignment = .right
         return label
     }()
@@ -35,7 +35,7 @@ final class NewToDoTableViewCell: BaseTableViewCell {
     let detailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")
-        imageView.tintColor = .gray
+        imageView.tintColor = .lightGray
         return imageView
     }()
     

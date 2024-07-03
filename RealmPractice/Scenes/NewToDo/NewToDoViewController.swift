@@ -125,7 +125,7 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
         let title = NewToDoCellTitle.allCases[indexPath.row]
         switch title {
         case .closingDate:
-            let vc = ClosingDateViewController()
+            let vc = DateViewController()
             vc.sendDate = { date in
                 self.closingDate = date
                 self.tableView.reloadRows(at: [indexPath], with: .none)
