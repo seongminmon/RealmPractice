@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ClosingDateViewController: UIViewController {
+final class ClosingDateViewController: BaseViewController {
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -20,10 +20,6 @@ final class ClosingDateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
-        addSubviews()
-        configureLayout()
-        configureView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -31,21 +27,21 @@ final class ClosingDateViewController: UIViewController {
         sendDate?(datePicker.date)
     }
     
-    func configureNavigationBar() {
+    override func configureNavigationBar() {
         navigationItem.title = "마감일 고르기"
     }
     
-    func addSubviews() {
+    override func addSubviews() {
         view.addSubview(datePicker)
     }
     
-    func configureLayout() {
+    override func configureLayout() {
         datePicker.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
-    func configureView() {
+    override func configureView() {
         view.backgroundColor = .systemBackground
     }
 }

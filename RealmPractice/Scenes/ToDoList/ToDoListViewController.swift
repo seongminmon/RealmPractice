@@ -9,13 +9,13 @@ import UIKit
 import RealmSwift
 import SnapKit
 
-final class ToDoListViewController: UIViewController {
+final class ToDoListViewController: BaseViewController {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.id)
+        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
@@ -26,8 +26,7 @@ final class ToDoListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(realm.configuration.fileURL)
-//        print(todos)
+        print(realm.configuration.fileURL!)
         
         todos = realm.objects(ToDo.self)
         
@@ -56,14 +55,9 @@ final class ToDoListViewController: UIViewController {
                 fatalError("\(error)")
             }
         }
-        
-        configureNavigationBar()
-        addSubviews()
-        configureLayout()
-        configureView()
     }
     
-    func configureNavigationBar() {
+    override func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "New",
             style: .plain,
@@ -107,17 +101,17 @@ final class ToDoListViewController: UIViewController {
         present(nav, animated: true)
     }
     
-    func addSubviews() {
+    override func addSubviews() {
         view.addSubview(tableView)
     }
     
-    func configureLayout() {
+    override func configureLayout() {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
-    func configureView() {
+    override func configureView() {
         view.backgroundColor = .systemBackground
     }
     
@@ -148,7 +142,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: ToDoTableViewCell.id,
+            withIdentifier: ToDoTableViewCell.identifier,
             for: indexPath
         ) as? ToDoTableViewCell else {
             return UITableViewCell()

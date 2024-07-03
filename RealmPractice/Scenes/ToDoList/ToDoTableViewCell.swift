@@ -8,8 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ToDoTableViewCell: UITableViewCell {
-    static let id = "ToDoTableViewCell"
+final class ToDoTableViewCell: BaseTableViewCell {
     
     lazy var completeButton: UIButton = {
         var config = UIButton.Configuration.plain()
@@ -42,21 +41,14 @@ final class ToDoTableViewCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureView() {
+    override func addSubviews() {
         contentView.addSubview(completeButton)
         contentView.addSubview(titleLabel)
         contentView.addSubview(contentsLabel)
         contentView.addSubview(dateLabel)
-        
+    }
+    
+    override func configureLayout() {
         completeButton.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
             make.leading.equalTo(contentView.safeAreaLayoutGuide).inset(8)
@@ -93,18 +85,9 @@ final class ToDoTableViewCell: UITableViewCell {
         }
     }
 
-    // vc에서 데이터 받아서 데이터 세팅하기
     func configureCell(data: ToDo) {
         titleLabel.text = data.title
         contentsLabel.text = data.contents
-        dateLabel.text = dateToString(data.closingDate)
-    }
-    
-    func dateToString(_ date: Date?) -> String {
-        guard let date else { return "" }
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko")
-        formatter.dateFormat = "yyyy.MM.dd (E)"
-        return formatter.string(from: date)
+        dateLabel.text = data.closingDate?.dateToString()
     }
 }

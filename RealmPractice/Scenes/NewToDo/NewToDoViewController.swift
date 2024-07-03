@@ -17,7 +17,7 @@ enum NewToDoCellTitle: String, CaseIterable {
     case addImage = "이미지 추가"
 }
 
-final class NewToDoViewController: UIViewController {
+final class NewToDoViewController: BaseViewController {
     
     let writeView = WriteToDoView(frame: .zero)
     
@@ -25,7 +25,7 @@ final class NewToDoViewController: UIViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(NewToDoTableViewCell.self, forCellReuseIdentifier: NewToDoTableViewCell.id)
+        tableView.register(NewToDoTableViewCell.self, forCellReuseIdentifier: NewToDoTableViewCell.identifier)
         tableView.rowHeight = 60
         tableView.isScrollEnabled = false
         return tableView
@@ -35,13 +35,9 @@ final class NewToDoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
-        addSubviews()
-        configureLayout()
-        configureView()
     }
     
-    func configureNavigationBar() {
+    override func configureNavigationBar() {
         navigationItem.title = "새로운 할 일"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -81,12 +77,12 @@ final class NewToDoViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    func addSubviews() {
+    override func addSubviews() {
         view.addSubview(writeView)
         view.addSubview(tableView)
     }
     
-    func configureLayout() {
+    override func configureLayout() {
         writeView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(200)
@@ -98,8 +94,12 @@ final class NewToDoViewController: UIViewController {
         }
     }
     
-    func configureView() {
+    override func configureView() {
         view.backgroundColor = .systemBackground
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 
@@ -110,7 +110,7 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: NewToDoTableViewCell.id,
+            withIdentifier: NewToDoTableViewCell.identifier,
             for: indexPath
         ) as? NewToDoTableViewCell else {
             return UITableViewCell()

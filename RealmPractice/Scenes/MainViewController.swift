@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: BaseViewController {
     
     lazy var newTodoButton: UIButton = {
         var config = UIButton.Configuration.plain()
@@ -23,16 +23,13 @@ final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubviews()
-        configureLayout()
-        configureView()
     }
     
-    func addSubviews() {
+    override func addSubviews() {
         view.addSubview(newTodoButton)
     }
     
-    func configureLayout() {
+    override func configureLayout() {
         newTodoButton.snp.makeConstraints { make in
             make.leading.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
             make.width.equalTo(140)
@@ -40,7 +37,7 @@ final class MainViewController: UIViewController {
         }
     }
     
-    func configureView() {
+    override func configureView() {
         view.backgroundColor = .systemBackground
     }
     

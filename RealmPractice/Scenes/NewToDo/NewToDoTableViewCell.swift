@@ -8,8 +8,7 @@
 import UIKit
 import SnapKit
 
-final class NewToDoTableViewCell: UITableViewCell {
-    static let id = "NewToDoTableViewCell"
+final class NewToDoTableViewCell: BaseTableViewCell {
     
     let containerView: UIView = {
         let view = UIView()
@@ -40,21 +39,14 @@ final class NewToDoTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureView() {
+    override func addSubviews() {
         containerView.addSubview(titleLabel)
         containerView.addSubview(detailLabel)
         containerView.addSubview(detailImageView)
         contentView.addSubview(containerView)
-        
+    }
+    
+    override func configureLayout() {
         containerView.snp.makeConstraints { make in
             make.edges.equalTo(contentView.safeAreaLayoutGuide).inset(8)
         }
@@ -79,14 +71,6 @@ final class NewToDoTableViewCell: UITableViewCell {
 
     func configureCell(data: String?, date: Date?) {
         titleLabel.text = data
-        detailLabel.text = dateToString(date)
-    }
-    
-    func dateToString(_ date: Date?) -> String {
-        guard let date else { return "" }
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko")
-        formatter.dateFormat = "yyyy.MM.dd (E)"
-        return formatter.string(from: date)
+        detailLabel.text = date?.dateToString()
     }
 }
