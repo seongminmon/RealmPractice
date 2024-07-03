@@ -12,7 +12,7 @@ final class ToDoTableViewCell: BaseTableViewCell {
     
     lazy var completeButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.image = UIImage(systemName: "circle")
+        config.image = UIImage(systemName: "circle.fill")
         config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         let button = UIButton(configuration: config)

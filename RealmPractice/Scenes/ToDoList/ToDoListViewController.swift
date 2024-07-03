@@ -101,10 +101,7 @@ final class ToDoListViewController: BaseViewController {
     }
     
     @objc func newButtonClicked() {
-        // 새로운 할 일 화면 띄우기
-        let vc = NewToDoViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        present(nav, animated: true)
+        print(#function)
     }
     
     override func addSubviews() {

@@ -30,6 +30,8 @@
 		24B3BDB52C351AA40088CDB7 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB42C351AA40088CDB7 /* TagViewController.swift */; };
 		24B3BDB72C351AE10088CDB7 /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB62C351AE10088CDB7 /* PriorityViewController.swift */; };
 		24B3BDB92C3537B10088CDB7 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDB82C3537B10088CDB7 /* UILabel+.swift */; };
+		24B3BDBB2C35399C0088CDB7 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDBA2C35399C0088CDB7 /* BaseCollectionViewCell.swift */; };
+		24B3BDBD2C3539FE0088CDB7 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		24B3BDB42C351AA40088CDB7 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		24B3BDB62C351AE10088CDB7 /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
 		24B3BDB82C3537B10088CDB7 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		24B3BDBA2C35399C0088CDB7 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 			children = (
 				24B3BDA72C3512AE0088CDB7 /* BaseViewController.swift */,
 				24B3BDAA2C3513CB0088CDB7 /* BaseTableViewCell.swift */,
+				24B3BDBA2C35399C0088CDB7 /* BaseCollectionViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				24B3BD792C33E7370088CDB7 /* MainViewController.swift */,
+				24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */,
 				24B3BD9F2C3401AB0088CDB7 /* ToDoList */,
 				24B3BD9E2C3401A30088CDB7 /* NewToDo */,
 			);
@@ -263,6 +269,8 @@
 				24B3BDB12C3515E70088CDB7 /* Date+.swift in Sources */,
 				24B3BDB72C351AE10088CDB7 /* PriorityViewController.swift in Sources */,
 				24B3BDAF2C35143C0088CDB7 /* ReuseIdentifierProtocol.swift in Sources */,
+				24B3BDBD2C3539FE0088CDB7 /* MainCollectionViewCell.swift in Sources */,
+				24B3BDBB2C35399C0088CDB7 /* BaseCollectionViewCell.swift in Sources */,
 				24B3BD782C33E7370088CDB7 /* SceneDelegate.swift in Sources */,
 				24B3BDA32C340B3D0088CDB7 /* DateViewController.swift in Sources */,
 				24B3BD972C33EEEF0088CDB7 /* ToDoTableViewCell.swift in Sources */,
