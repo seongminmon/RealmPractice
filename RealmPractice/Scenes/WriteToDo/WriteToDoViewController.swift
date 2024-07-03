@@ -32,6 +32,7 @@ final class WriteToDoViewController: BaseViewController {
     }()
     
     // 새로 추가일땐 todo가 nil, 수정 or 삭제 일땐 todo값 존재
+    let realm = try! Realm()
     var todo: ToDo?
     
     var closingDate: Date?
@@ -40,6 +41,12 @@ final class WriteToDoViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let todo {
+            closingDate = todo.closingDate
+            tag = todo.tag
+            priority = todo.priority
+        }
         
         NotificationCenter.default.addObserver(
             self,
@@ -106,8 +113,7 @@ final class WriteToDoViewController: BaseViewController {
             return
         }
         
-        // Realm에 추가하기
-        let realm = try! Realm()
+        // Realm Create
         let todo = ToDo(title: title, contents: contents, closingDate: closingDate, tag: tag, priority: priority, date: Date())
         try! realm.write {
             realm.add(todo)
@@ -118,18 +124,31 @@ final class WriteToDoViewController: BaseViewController {
     
     @objc func updateButtonClicked() {
         print(#function)
-        // Realm 업데이트 구현
+        // Realm Update
         
+        guard let title = writeView.titleTextField.text,
+              let contents = writeView.contentsTextView.text,
+              !title.isEmpty else {
+            self.view.makeToast("제목을 입력해주세요")
+            return
+        }
+        
+        let newTodo = ToDo(title: title, contents: contents, closingDate: closingDate, tag: tag, priority: priority, date: Date())
+        try! realm.write {
+            todo = newTodo
+        }
         
         dismiss(animated: true)
     }
     
     @objc func deleteButtonClicked() {
         print(#function)
+        // Realm Delete
         
         presentAlert(title: "삭제", message: "정말 삭제하시겠습니까?", actionTitle: "삭제") { _ in
-            // Realm 삭제 구현
-            
+            try! self.realm.write {
+                self.realm.delete(self.todo!)
+            }
             self.dismiss(animated: true)
         }
     }

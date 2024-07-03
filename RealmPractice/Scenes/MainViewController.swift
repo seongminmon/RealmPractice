@@ -56,6 +56,8 @@ final class MainViewController: BaseViewController {
     
     let realm = try! Realm()
     
+    // TODO: - 할 일 추가했을 때 count 뷰 업데이트
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(realm.configuration.fileURL!)
@@ -109,7 +111,6 @@ final class MainViewController: BaseViewController {
     }
     
     override func configureView() {
-        view.backgroundColor = .systemBackground
     }
     
     @objc func newTodoButtonClicked() {
