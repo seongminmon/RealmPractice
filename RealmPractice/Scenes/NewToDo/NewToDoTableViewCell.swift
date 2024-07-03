@@ -69,8 +69,15 @@ final class NewToDoTableViewCell: BaseTableViewCell {
         }
     }
 
-    func configureCell(data: String?, date: Date?) {
-        titleLabel.text = data
+    func configureTitle(_ title: String?) {
+        titleLabel.text = title
+    }
+    
+    func configureDate(_ date: Date?) {
         detailLabel.text = date?.dateToString()
+    }
+    
+    func configureTag(_ tag: String?) {
+        detailLabel.text = "#" + (tag ?? "")
     }
 }
