@@ -17,12 +17,6 @@ enum NewToDoCellTitle: String, CaseIterable {
     case addImage = "이미지 추가"
 }
 
-enum ToDoPriority {
-    case high
-    case medium
-    case low
-}
-
 final class NewToDoViewController: BaseViewController {
     
     let writeView = WriteToDoView(frame: .zero)
@@ -37,23 +31,19 @@ final class NewToDoViewController: BaseViewController {
         return tableView
     }()
     
-    // "새로운 할 일" 뷰에서 가져야할게 뭐야?
-    // 하나의 제대로된 ToDo를 만들어서 저장 누르면 Realm에 하나의 레코드를 추가하는것
-    // 그렇다면 ToDo에 대한 정보를 모두 가져야 한다
-    // saveButton을 눌렀을 때 제목 텍스트필드, 내용 텍스트뷰, 마감일 셀, 태그 셀, 우선 순위 셀, 이미지 추가 셀이 가지고 있는 정보들을 모아모아서 ToDo 1개를 만들어야 한다. 직접 가지지는 말고?
-    // 그럼 cell에 어떻게 뿌려주지?
-    // 직접 ?
-    // 마감일 셀: 0번셀
-    // 태그
-    // 우선순위
-    // 이미지 추가
-    
     var closingDate: Date?
     var tag: String?
     var priority: ToDoPriority?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(priorityNotification),
+            name: Notification.Name("priority"),
+            object: nil
+        )
     }
     
     override func configureNavigationBar() {
@@ -120,6 +110,11 @@ final class NewToDoViewController: BaseViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    @objc func priorityNotification(notification: NSNotification) {
+        priority = notification.userInfo?[0] as? ToDoPriority
+        tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+    }
 }
 
 extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
@@ -144,6 +139,8 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configureDate(closingDate)
         case .tag:
             cell.configureTag(tag)
+        case .priority:
+            cell.configurePriority(priority)
         default:
             break
         }

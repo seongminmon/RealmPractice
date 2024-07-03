@@ -40,8 +40,4 @@ final class DateViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
-    override func configureView() {
-        view.backgroundColor = .systemBackground
-    }
 }

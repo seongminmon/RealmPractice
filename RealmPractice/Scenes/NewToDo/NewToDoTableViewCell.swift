@@ -80,4 +80,8 @@ final class NewToDoTableViewCell: BaseTableViewCell {
     func configureTag(_ tag: String?) {
         detailLabel.text = "#" + (tag ?? "")
     }
+    
+    func configurePriority(_ priority: ToDoPriority?) {
+        detailLabel.text = priority?.rawValue
+    }
 }

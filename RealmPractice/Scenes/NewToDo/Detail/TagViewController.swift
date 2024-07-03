@@ -20,7 +20,7 @@ final class TagViewController: BaseViewController {
         tf.backgroundColor = .darkGray
         tf.layer.cornerRadius = 10
         
-        // 양옆 패딩 주기
+        // 양 옆 padding
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         tf.leftView = paddingView
         tf.leftViewMode = .always
@@ -38,7 +38,6 @@ final class TagViewController: BaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         guard let data = textField.text else { return }
-        print(data)
         delegate?.sendTag(data: data)
     }
     
