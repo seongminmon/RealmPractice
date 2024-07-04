@@ -17,7 +17,7 @@ struct MainCollection {
     static let list: [MainCollection] = [
         MainCollection(description: "오늘", mainImage: UIImage(systemName: "calendar")!, background: .systemBlue),
         MainCollection(description: "예정", mainImage: UIImage(systemName: "calendar.badge.plus")!, background: .systemRed),
-        MainCollection(description: "전체", mainImage: UIImage(systemName: "archivebox")!, background: .gray),
+        MainCollection(description: "전체", mainImage: UIImage(systemName: "tray.fill")!, background: .gray),
         MainCollection(description: "깃발 표시", mainImage: UIImage(systemName: "flag.fill")!, background: .systemYellow),
         MainCollection(description: "완료됨", mainImage: UIImage(systemName: "checkmark")!, background: .gray)
     ]
