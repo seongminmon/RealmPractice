@@ -20,14 +20,18 @@ final class ToDoListViewController: BaseViewController {
         return tableView
     }()
     
-    var naviTitle: String?  // 이전 화면에서 전달
+    var naviTitle: String?      // 이전 화면에서 전달
+    var todos: Results<ToDo>!   // 이전 화면에서 filter된 채로 전달
     
+    var sortedTodos: Results<ToDo>!
     let repository = ToDoRepository()
-    var todos: Results<ToDo>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        todos = repository.fetchAll()
+        sortedTodos = todos
+        repository.configureNotification {
+            self.tableView.reloadData()
+        }
     }
     
     override func configureNavigationBar() {
@@ -36,19 +40,17 @@ final class ToDoListViewController: BaseViewController {
         // pull down 버튼 만들기
         let total = UIAction(title: "전체") { _ in
             print("전체")
-            self.todos = self.repository.fetchAll()
+            self.sortedTodos = self.todos
             self.tableView.reloadData()
         }
         let titleSort = UIAction(title: "제목 순으로 보기") { _ in
             print("제목 순으로 보기")
-            self.todos = self.repository.fetchAll()
-                .sorted(byKeyPath: "title", ascending: true)
+            self.sortedTodos = self.todos.sorted(byKeyPath: "title", ascending: true)
             self.tableView.reloadData()
         }
         let dateSort = UIAction(title: "마감일 순으로 보기") { _ in
             print("마감일 순으로 보기")
-            self.todos = self.repository.fetchAll()
-                .sorted(byKeyPath: "closingDate", ascending: true)
+            self.sortedTodos = self.todos.sorted(byKeyPath: "closingDate", ascending: true)
             self.tableView.reloadData()
         }
         let cancel = UIAction(title: "취소") { _ in
@@ -78,7 +80,7 @@ final class ToDoListViewController: BaseViewController {
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todos.count
+        return sortedTodos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,7 +91,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let data = todos[indexPath.row]
+        let data = sortedTodos[indexPath.row]
         cell.configureCell(data: data)
         cell.completeButton.tag = indexPath.row
         cell.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
@@ -97,14 +99,14 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func completeButtonClicked(sender: UIButton) {
-        let item = todos[sender.tag]
+        let item = sortedTodos[sender.tag]
         repository.toggleIsCompleteItem(item)
         sender.tintColor = item.isComplete ? .systemBlue : .gray
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let item = todos[indexPath.row]
+            let item = sortedTodos[indexPath.row]
             repository.deleteItem(item)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -113,7 +115,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 수정 화면으로 이동하기
         let vc = WriteToDoViewController()
-        vc.todo = todos[indexPath.row]
+        vc.todo = sortedTodos[indexPath.row]
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }

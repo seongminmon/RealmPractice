@@ -17,6 +17,7 @@ enum NewToDoCellTitle: String, CaseIterable {
     case addImage = "이미지 추가"
 }
 
+// MARK: - 1. 새로운 할 일 / 2. 수정, 삭제 재활용
 final class WriteToDoViewController: BaseViewController {
     
     let writeView = WriteToDoView(frame: .zero)
@@ -31,9 +32,8 @@ final class WriteToDoViewController: BaseViewController {
         return tableView
     }()
     
-    // 새로 추가일땐 todo가 nil, 수정 or 삭제 일땐 todo값 존재
     let repository = ToDoRepository()
-    var todo: ToDo?
+    var todo: ToDo?     // 추가일땐 todo가 nil, 수정 or 삭제 일땐 todo값 존재
     
     var closingDate: Date?
     var tag: String?

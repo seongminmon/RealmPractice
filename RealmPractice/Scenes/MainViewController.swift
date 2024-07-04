@@ -12,14 +12,48 @@ struct MainCollection {
     let description: String
     let mainImage: UIImage
     let background: UIColor
+    let sortOption: SortOption
     
     static let list: [MainCollection] = [
-        MainCollection(description: "오늘", mainImage: UIImage(systemName: "calendar")!, background: .systemBlue),
-        MainCollection(description: "예정", mainImage: UIImage(systemName: "calendar.badge.plus")!, background: .systemRed),
-        MainCollection(description: "전체", mainImage: UIImage(systemName: "tray.fill")!, background: .gray),
-        MainCollection(description: "깃발 표시", mainImage: UIImage(systemName: "flag.fill")!, background: .systemYellow),
-        MainCollection(description: "완료됨", mainImage: UIImage(systemName: "checkmark")!, background: .gray)
+        MainCollection(
+            description: "오늘",
+            mainImage: UIImage(systemName: "calendar")!,
+            background: .systemBlue,
+            sortOption: .today
+        ),
+        MainCollection(
+            description: "예정",
+            mainImage: UIImage(systemName: "calendar.badge.plus")!,
+            background: .systemRed,
+            sortOption: .coming
+        ),
+        MainCollection(
+            description: "전체",
+            mainImage: UIImage(systemName: "tray.fill")!,
+            background: .gray,
+            sortOption: .total
+        ),
+        MainCollection(
+            description: "깃발 표시",
+            mainImage: UIImage(systemName: "flag.fill")!,
+            background: .systemYellow,
+            sortOption: .flag
+        ),
+        MainCollection(
+            description: "완료됨",
+            mainImage: UIImage(systemName: "checkmark")!,
+            background: .gray,
+            sortOption: .completed
+        )
     ]
+}
+
+enum SortOption: CaseIterable {
+    case today
+    case coming
+    case total
+    case flag
+    case completed
 }
 
 final class MainViewController: BaseViewController {
@@ -55,12 +89,15 @@ final class MainViewController: BaseViewController {
     
     let repository = ToDoRepository()
     
-    // TODO: - 할 일 추가했을 때 count 뷰 업데이트
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(repository.fileURL!)
         print("스키마 버전: \(repository.schemaVersion!)")
+        
+        // count 뷰 업데이트
+        repository.configureNotification {
+            self.collectionView.reloadData()
+        }
     }
     
     override func configureNavigationBar() {
@@ -77,6 +114,7 @@ final class MainViewController: BaseViewController {
     
     @objc func calendarButtonClicked() {
         print(#function)
+        // TODO: 캘린더 뜨고, 선택한 날짜가 마감일인 할 일들 표시
     }
     
     override func addSubviews() {
@@ -133,16 +171,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return UICollectionViewCell()
         }
         
-        let count = repository.fetchAll().count
+        let option = SortOption.allCases[indexPath.row]
+        let filtered = repository.fetchFiltered(sortOption: option)
+        
         let data = MainCollection.list[indexPath.row]
-        cell.configureCell(count: count, data: data)
+        cell.configureCell(count: filtered.count, data: data)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 할 일 리스트 화면 이동
         let vc = ToDoListViewController()
-        vc.naviTitle = MainCollection.list[indexPath.row].description
+        let naviTitle = MainCollection.list[indexPath.row].description
+        vc.naviTitle = naviTitle
+        
+        let option = SortOption.allCases[indexPath.row]
+        let filtered = repository.fetchFiltered(sortOption: option)
+        vc.todos = filtered
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }
