@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2497C56F2C358C7200995394 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2497C56E2C358C7200995394 /* RealmSwift */; };
 		2497C5702C36218A00995394 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2497C56E2C358C7200995394 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2497C5792C3685FB00995394 /* ToDoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C5782C3685FB00995394 /* ToDoRepository.swift */; };
 		24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD752C33E7370088CDB7 /* AppDelegate.swift */; };
 		24B3BD782C33E7370088CDB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */; };
 		24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD792C33E7370088CDB7 /* MainViewController.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2497C5782C3685FB00995394 /* ToDoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRepository.swift; sourceTree = "<group>"; };
 		24B3BD722C33E7370088CDB7 /* RealmPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B3BD752C33E7370088CDB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				24B3BDA02C3401E20088CDB7 /* ToDo.swift */,
+				2497C5782C3685FB00995394 /* ToDoRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				24B3BDBF2C356DBC0088CDB7 /* DetailToDoViewController.swift in Sources */,
 				24B3BD992C33FB5E0088CDB7 /* WriteToDoViewController.swift in Sources */,
 				24B3BD9B2C33FBFC0088CDB7 /* WriteToDoView.swift in Sources */,
+				2497C5792C3685FB00995394 /* ToDoRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

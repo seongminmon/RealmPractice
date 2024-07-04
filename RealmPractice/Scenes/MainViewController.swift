@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 import SnapKit
 
 struct MainCollection {
@@ -54,19 +53,14 @@ final class MainViewController: BaseViewController {
         return button
     }()
     
-    let realm = try! Realm()
+    let repository = ToDoRepository()
     
     // TODO: - 할 일 추가했을 때 count 뷰 업데이트
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(realm.configuration.fileURL!)
-        do {
-            let version = try schemaVersionAtURL(realm.configuration.fileURL!)
-            print("스키마 버전: ", version)
-        } catch {
-            
-        }
+        print(repository.fileURL!)
+        print("스키마 버전: \(repository.schemaVersion!)")
     }
     
     override func configureNavigationBar() {
@@ -138,7 +132,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         ) as? MainCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let count = realm.objects(ToDo.self).count
+        
+        let count = repository.fetchAll().count
         let data = MainCollection.list[indexPath.row]
         cell.configureCell(count: count, data: data)
         return cell

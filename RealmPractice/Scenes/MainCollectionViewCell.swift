@@ -81,7 +81,6 @@ final class MainCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        //
     }
     
     func configureCell(count: Int, data: MainCollection) {
