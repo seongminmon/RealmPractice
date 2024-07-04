@@ -9,19 +9,15 @@ import Foundation
 import RealmSwift
 
 final class ToDoRepository {
-    // TODO: - 이미지 핸들링
-    private let realm = try! Realm()
-    var notificationToken: NotificationToken?
     
+    private let realm = try! Realm()
     var todos: Results<ToDo> {
         return realm.objects(ToDo.self)
     }
+    var notificationToken: NotificationToken?
     
     func configureNotification(completionHandler: @escaping () -> Void) {
         notificationToken = todos.observe { changes in
-            // (RealmCollectionChange<Results<ToDo>>
-            // completionHandler(changes)
-            
             switch changes {
                 
             case .initial(let todos):
@@ -70,12 +66,12 @@ final class ToDoRepository {
         let objects = fetchAll()
         switch sortOption {
         case .today:
-            // 오늘을 마감일로 설정한 목록
+            // TODO: 오늘을 마감일로 설정한 목록
             return objects.where {
                 $0.date == Date()
             }
         case .coming:
-            // 마감일이 설정되어 있고, 마감일이 미래인 목록
+            // TODO: 마감일이 설정되어 있고, 마감일이 미래인 목록
             return objects.where {
                 $0.date > Date()
             }
@@ -165,5 +161,7 @@ final class ToDoRepository {
             print("Realm Delete All!")
         }
     }
+    
+    // TODO: - 이미지 파일 매니저로 핸들링
     
 }

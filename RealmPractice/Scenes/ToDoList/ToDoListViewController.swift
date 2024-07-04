@@ -105,6 +105,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // TODO: 스와이프로 깃발 표시 기능 구현하기
         if editingStyle == .delete {
             let item = sortedTodos[indexPath.row]
             repository.deleteItem(item)

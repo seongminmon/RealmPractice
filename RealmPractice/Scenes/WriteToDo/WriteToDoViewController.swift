@@ -252,7 +252,8 @@ extension WriteToDoViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = PriorityViewController()
             navigationController?.pushViewController(vc, animated: true)
             
-        default:
+        case .addImage:
+            // TODO: - PHPicker 갤러리에서 사진 선택하기
             break
         }
     }
