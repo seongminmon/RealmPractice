@@ -21,39 +21,12 @@ final class ToDoListViewController: BaseViewController {
     }()
     
     var naviTitle: String?
-    let realm = try! Realm()
+    let repository = ToDoRepository()
     var todos: Results<ToDo>!
-    var notificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        todos = realm.objects(ToDo.self)
-        
-        notificationToken = todos?.observe { [unowned self] changes in
-            switch changes {
-            case .initial:
-                self.tableView.reloadData()
-                
-            case .update:
-                print("UPDATE")
-                self.tableView.reloadData()
-                
-//                if deletions.count > 0 {
-//                    deleteRow(at: deletions)
-//                }
-//                
-//                if insertions.count > 0 {
-//                    insertRow(at: insertions)
-//                }
-//                
-//                if modifications.count > 0 {
-//                    updateRow(at: modifications)
-//                }
-                
-            case .error(let error):
-                fatalError("\(error)")
-            }
-        }
+        todos = repository.fetchAll()
     }
     
     override func configureNavigationBar() {
@@ -62,22 +35,22 @@ final class ToDoListViewController: BaseViewController {
         // pull down 버튼 만들기
         let total = UIAction(title: "전체") { _ in
             print("전체")
-            self.todos = self.realm.objects(ToDo.self)
+            self.todos = self.repository.fetchAll()
             self.tableView.reloadData()
         }
         let titleSort = UIAction(title: "제목 순으로 보기") { _ in
             print("제목 순으로 보기")
-            self.todos = self.realm.objects(ToDo.self)
+            self.todos = self.repository.fetchAll()
                 .sorted(byKeyPath: "title", ascending: true)
             self.tableView.reloadData()
         }
         let dateSort = UIAction(title: "마감일 순으로 보기") { _ in
             print("마감일 순으로 보기")
-            self.todos = self.realm.objects(ToDo.self)
+            self.todos = self.repository.fetchAll()
                 .sorted(byKeyPath: "closingDate", ascending: true)
             self.tableView.reloadData()
         }
-        let cancel = UIAction(title: "취소", attributes: .destructive) { _ in
+        let cancel = UIAction(title: "취소") { _ in
             print("취소")
         }
         let menu = UIMenu(children: [total, titleSort, dateSort, cancel])
@@ -99,27 +72,7 @@ final class ToDoListViewController: BaseViewController {
     }
     
     override func configureView() {
-        view.backgroundColor = .systemBackground
     }
-    
-//    func insertRow(at indexs: [Int]) {
-//        tableView.beginUpdates()
-//        let indexPaths = indexs.map { IndexPath(item: $0, section: 0) }
-//        tableView.insertRows(at: indexPaths, with: .automatic)
-//        tableView.endUpdates()
-//    }
-//    
-//    func deleteRow(at indexs: [Int]) {
-//        tableView.beginUpdates()
-//        let indexPaths = indexs.map { IndexPath(item: $0, section: 0) }
-//        tableView.deleteRows(at: indexPaths, with: .automatic)
-//        tableView.endUpdates()
-//    }
-//    
-//    func updateRow(at indexs: [Int]) {
-//        let indexPaths = indexs.map { IndexPath(item: $0, section: 0) }
-//        tableView.reloadRows(at: indexPaths, with: .automatic)
-//    }
 }
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -143,18 +96,15 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func completeButtonClicked(sender: UIButton) {
-        let target = todos[sender.tag]
-        try! realm.write {
-            target.isComplete.toggle()
-        }
-        sender.tintColor = target.isComplete ? .systemBlue : .gray
+        let item = todos[sender.tag]
+        repository.toggleIsCompleteItem(item)
+        sender.tintColor = item.isComplete ? .systemBlue : .gray
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            try! realm.write {
-                realm.delete(todos[indexPath.row])
-            }
+            let item = todos[indexPath.row]
+            repository.deleteItem(item)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

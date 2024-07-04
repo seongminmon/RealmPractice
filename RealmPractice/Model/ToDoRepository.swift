@@ -37,7 +37,16 @@ final class ToDoRepository {
     }
     
     // MARK: - Update
+    func toggleIsCompleteItem(_ item: ToDo) {
+        try! realm.write {
+            item.isComplete.toggle()
+        }
+    }
     
     // MARK: - Delete
-    
+    func deleteItem(_ item: ToDo) {
+        try! realm.write {
+            realm.delete(item)
+        }
+    }
 }
