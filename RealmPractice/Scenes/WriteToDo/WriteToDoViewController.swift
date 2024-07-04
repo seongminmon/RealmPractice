@@ -32,7 +32,7 @@ final class WriteToDoViewController: BaseViewController {
     }()
     
     // 새로 추가일땐 todo가 nil, 수정 or 삭제 일땐 todo값 존재
-    let realm = try! Realm()
+    let repository = ToDoRepository()
     var todo: ToDo?
     
     var closingDate: Date?
@@ -107,48 +107,60 @@ final class WriteToDoViewController: BaseViewController {
     
     @objc func addButtonClicked() {
         guard let title = writeView.titleTextField.text,
-              let contents = writeView.contentsTextView.text,
               !title.isEmpty else {
             self.view.makeToast("제목을 입력해주세요")
             return
         }
         
-        // Realm Create
-        let todo = ToDo(title: title, contents: contents, closingDate: closingDate, tag: tag, priority: priority, date: Date())
-        try! realm.write {
-            realm.add(todo)
+        // 플레이스 홀더 내용 안 들어가도록 처리
+        var contents = writeView.contentsTextView.text
+        if writeView.contentsTextView.textColor == .lightGray {
+            contents = nil
         }
+        
+        // Realm Create
+        let todo = ToDo(
+            title: title,
+            contents: contents,
+            closingDate: closingDate,
+            tag: tag,
+            priority: priority,
+            date: Date()
+        )
+        
+        repository.addItem(todo)
         
         dismiss(animated: true)
     }
     
     @objc func updateButtonClicked() {
-        print(#function)
-        // Realm Update
-        
         guard let title = writeView.titleTextField.text,
-              let contents = writeView.contentsTextView.text,
               !title.isEmpty else {
             self.view.makeToast("제목을 입력해주세요")
             return
         }
         
-        let newTodo = ToDo(title: title, contents: contents, closingDate: closingDate, tag: tag, priority: priority, date: Date())
-        try! realm.write {
-            todo = newTodo
+        // 플레이스 홀더 내용 안 들어가도록 처리
+        var contents = writeView.contentsTextView.text
+        if writeView.contentsTextView.textColor == .lightGray {
+            contents = nil
         }
+        
+        repository.updateItem(
+            todo!,
+            title: title,
+            contents: contents,
+            closingDate: closingDate,
+            tag: tag,
+            priority: priority
+        )
         
         dismiss(animated: true)
     }
     
     @objc func deleteButtonClicked() {
-        print(#function)
-        // Realm Delete
-        
         presentAlert(title: "삭제", message: "정말 삭제하시겠습니까?", actionTitle: "삭제") { _ in
-            try! self.realm.write {
-                self.realm.delete(self.todo!)
-            }
+            self.repository.deleteItem(self.todo!)
             self.dismiss(animated: true)
         }
     }
@@ -203,31 +215,15 @@ extension WriteToDoViewController: UITableViewDelegate, UITableViewDataSource {
         let option = NewToDoCellTitle.allCases[indexPath.row]
         let title = option.rawValue
         cell.configureTitle(title)
-        
-        if let todo {
-            // 수정/삭제 일때
-            switch option {
-            case .closingDate:
-                cell.configureDate(todo.closingDate)
-            case .tag:
-                cell.configureTag(todo.tag)
-            case .priority:
-                cell.configurePriority(todo.priority)
-            default:
-                break
-            }
-        } else {
-            // 추가 일때
-            switch option {
-            case .closingDate:
-                cell.configureDate(closingDate)
-            case .tag:
-                cell.configureTag(tag)
-            case .priority:
-                cell.configurePriority(priority)
-            default:
-                break
-            }
+        switch option {
+        case .closingDate:
+            cell.configureDate(closingDate)
+        case .tag:
+            cell.configureTag(tag)
+        case .priority:
+            cell.configurePriority(priority)
+        default:
+            break
         }
         
         return cell

@@ -20,7 +20,8 @@ final class ToDoListViewController: BaseViewController {
         return tableView
     }()
     
-    var naviTitle: String?
+    var naviTitle: String?  // 이전 화면에서 전달
+    
     let repository = ToDoRepository()
     var todos: Results<ToDo>!
     
