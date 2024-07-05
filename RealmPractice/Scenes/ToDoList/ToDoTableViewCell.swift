@@ -48,29 +48,26 @@ final class ToDoTableViewCell: BaseTableViewCell {
     
     override func configureLayout() {
         completeButton.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
-            make.leading.equalTo(contentView.safeAreaLayoutGuide).inset(8)
+            make.top.equalToSuperview().inset(8)
+            make.leading.equalToSuperview().inset(8)
             make.size.equalTo(30)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
+            make.top.equalToSuperview().inset(8)
             make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
-            make.height.equalTo(20)
+            make.trailing.equalToSuperview().inset(16)
         }
         
         contentsLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
+            make.horizontalEdges.equalTo(titleLabel)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(contentsLabel.snp.bottom).offset(4)
-            make.leading.equalTo(completeButton.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView.safeAreaInsets).inset(16)
-            make.bottom.equalTo(contentView.safeAreaInsets).inset(8)
+            make.horizontalEdges.equalTo(titleLabel)
+            make.bottom.equalToSuperview().inset(8)
         }
     }
 
