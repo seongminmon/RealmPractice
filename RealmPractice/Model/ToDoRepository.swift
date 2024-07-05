@@ -53,29 +53,52 @@ final class ToDoRepository {
         let objects = fetchAll()
         switch sortOption {
         case .today:
-            // TODO: 오늘을 마감일로 설정한 목록
+            let date = Date()
+            let calendar = Calendar.current
+            
+            let today = calendar.startOfDay(for: date)
+            let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+            
             return objects.where {
-                $0.date == Date()
+                $0.closingDate >= today && $0.closingDate < tomorrow
             }
+            
+//            return objects.where {
+//                calendar.isDateInToday($0.date)
+//            }
+            
         case .coming:
-            // TODO: 마감일이 설정되어 있고, 마감일이 미래인 목록
+            let date = Date()
+            let calendar = Calendar.current
+            
+            let today = calendar.startOfDay(for: date)
+            let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+            
             return objects.where {
-                $0.date > Date()
+                $0.closingDate >= tomorrow
             }
+            
+//            return objects.where {
+//                calendar.isDateInTomorrow($0.date)
+//            }
+            
         case .total:
             // 전체 목록
             return objects
+            
         case .flag:
             // 깃발이 설정된 목록
             return objects.where {
                 $0.flag
             }
+            
         case .completed:
             // 할 일이 완료된 목록
             return objects.where {
                 $0.isComplete
             }
         }
+        
     }
     
     // MARK: - Update
