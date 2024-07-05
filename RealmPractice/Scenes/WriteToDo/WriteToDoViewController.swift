@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 import RealmSwift
 import SnapKit
 import Toast
@@ -17,7 +18,7 @@ enum NewToDoCellTitle: String, CaseIterable {
     case addImage = "이미지 추가"
 }
 
-// MARK: - 1. 새로운 할 일 / 2. 수정, 삭제 재활용
+// MARK: - 1. 새로운 할 일 / 2. 수정, 삭제 => 두 화면 재활용
 final class WriteToDoViewController: BaseViewController {
     
     let writeView = WriteToDoView(frame: .zero)
@@ -28,7 +29,6 @@ final class WriteToDoViewController: BaseViewController {
         tableView.dataSource = self
         tableView.register(WriteToDoTableViewCell.self, forCellReuseIdentifier: WriteToDoTableViewCell.identifier)
         tableView.rowHeight = 60
-        tableView.isScrollEnabled = false
         return tableView
     }()
     
@@ -262,6 +262,10 @@ extension WriteToDoViewController: UITableViewDelegate, UITableViewDataSource {
             
         case .addImage:
             // TODO: - PHPicker 갤러리에서 사진 선택하기
+            let config = PHPickerConfiguration(photoLibrary: .shared())
+            let picker = PHPickerViewController(configuration: config)
+            picker.delegate = self
+            present(picker, animated: true)
             break
         }
     }
@@ -272,4 +276,12 @@ extension WriteToDoViewController: TagDelegate {
         tag = data
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }
+}
+
+extension WriteToDoViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        print(#function)
+    }
+    
+    
 }

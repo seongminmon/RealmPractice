@@ -10,13 +10,7 @@ import SnapKit
 
 final class MainCollectionViewCell: BaseCollectionViewCell {
     
-    let containerView = {
-        let view = UIView()
-        view.backgroundColor = .darkGray
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        return view
-    }()
+    let containerView = ContainerView()
     
     let imageContainerView = {
         let view = UIView()
@@ -55,7 +49,7 @@ final class MainCollectionViewCell: BaseCollectionViewCell {
     
     override func configureLayout() {
         containerView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView.safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
         }
         
         imageContainerView.snp.makeConstraints { make in

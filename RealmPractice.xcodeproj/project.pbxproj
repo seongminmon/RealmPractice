@@ -10,6 +10,8 @@
 		2497C56F2C358C7200995394 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2497C56E2C358C7200995394 /* RealmSwift */; };
 		2497C5702C36218A00995394 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2497C56E2C358C7200995394 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2497C5792C3685FB00995394 /* ToDoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C5782C3685FB00995394 /* ToDoRepository.swift */; };
+		2497C57C2C38266B00995394 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C57B2C38266B00995394 /* BaseView.swift */; };
+		2497C57E2C3826A100995394 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C57D2C3826A100995394 /* ContainerView.swift */; };
 		24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD752C33E7370088CDB7 /* AppDelegate.swift */; };
 		24B3BD782C33E7370088CDB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */; };
 		24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD792C33E7370088CDB7 /* MainViewController.swift */; };
@@ -52,6 +54,8 @@
 
 /* Begin PBXFileReference section */
 		2497C5782C3685FB00995394 /* ToDoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRepository.swift; sourceTree = "<group>"; };
+		2497C57B2C38266B00995394 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		2497C57D2C3826A100995394 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		24B3BD722C33E7370088CDB7 /* RealmPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B3BD752C33E7370088CDB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		2497C57F2C3827A200995394 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				2497C57D2C3826A100995394 /* ContainerView.swift */,
+				24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		24B3BD692C33E7370088CDB7 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +139,7 @@
 				24B3BDAC2C3513EE0088CDB7 /* Model */,
 				24B3BDB22C3516B80088CDB7 /* Extension */,
 				24B3BDA92C3512B20088CDB7 /* Base */,
+				2497C57F2C3827A200995394 /* CustomView */,
 				24B3BDAD2C35141A0088CDB7 /* Scenes */,
 				24B3BD7E2C33E7380088CDB7 /* Assets.xcassets */,
 				24B3BD802C33E7380088CDB7 /* LaunchScreen.storyboard */,
@@ -138,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				24B3BD982C33FB5E0088CDB7 /* WriteToDoViewController.swift */,
-				24B3BD9A2C33FBFC0088CDB7 /* WriteToDoView.swift */,
 				24B3BD9C2C33FF810088CDB7 /* WriteToDoTableViewCell.swift */,
 				24B3BDB32C351A720088CDB7 /* Detail */,
 			);
@@ -160,6 +173,7 @@
 				24B3BDA72C3512AE0088CDB7 /* BaseViewController.swift */,
 				24B3BDAA2C3513CB0088CDB7 /* BaseTableViewCell.swift */,
 				24B3BDBA2C35399C0088CDB7 /* BaseCollectionViewCell.swift */,
+				2497C57B2C38266B00995394 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -287,6 +301,7 @@
 			files = (
 				24B3BDA12C3401E20088CDB7 /* ToDo.swift in Sources */,
 				24B3BD952C33EE7E0088CDB7 /* ToDoListViewController.swift in Sources */,
+				2497C57E2C3826A100995394 /* ContainerView.swift in Sources */,
 				24B3BDA82C3512AE0088CDB7 /* BaseViewController.swift in Sources */,
 				24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */,
 				24B3BDAB2C3513CB0088CDB7 /* BaseTableViewCell.swift in Sources */,
@@ -303,6 +318,7 @@
 				24B3BD972C33EEEF0088CDB7 /* ToDoTableViewCell.swift in Sources */,
 				24B3BDB52C351AA40088CDB7 /* TagViewController.swift in Sources */,
 				24B3BD992C33FB5E0088CDB7 /* WriteToDoViewController.swift in Sources */,
+				2497C57C2C38266B00995394 /* BaseView.swift in Sources */,
 				24B3BD9B2C33FBFC0088CDB7 /* WriteToDoView.swift in Sources */,
 				2497C5792C3685FB00995394 /* ToDoRepository.swift in Sources */,
 			);

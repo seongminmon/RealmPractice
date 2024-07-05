@@ -8,7 +8,9 @@
 import UIKit
 import SnapKit
 
-final class WriteToDoView: UIView {
+final class WriteToDoView: BaseView {
+    
+    let containerView = ContainerView()
     
     let titleTextField: UITextField = {
         let textField = UITextField()
@@ -34,23 +36,17 @@ final class WriteToDoView: UIView {
     
     let textViewPlaceHolder = "내용"
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureView()
+    override func addSubviews() {
+        containerView.addSubview(titleTextField)
+        containerView.addSubview(contentsTextView)
+        containerView.addSubview(separator)
+        addSubview(containerView)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureView() {
-        backgroundColor = .darkGray
-        clipsToBounds = true
-        layer.cornerRadius = 10
-        
-        addSubview(titleTextField)
-        addSubview(contentsTextView)
-        addSubview(separator)
+    override func configureLayout() {
+        containerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         titleTextField.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview().inset(8)
@@ -68,6 +64,10 @@ final class WriteToDoView: UIView {
             make.bottom.horizontalEdges.equalToSuperview().inset(8)
         }
     }
+    
+    override func configureView() {
+    }
+    
 }
 
 extension WriteToDoView: UITextViewDelegate {

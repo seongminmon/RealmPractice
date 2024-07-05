@@ -10,13 +10,7 @@ import SnapKit
 
 final class WriteToDoTableViewCell: BaseTableViewCell {
     
-    let containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .darkGray
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        return view
-    }()
+    let containerView = ContainerView()
     
     let titleLabel: UILabel = {
         let label = UILabel()

@@ -28,7 +28,7 @@ final class DateViewController: BaseViewController {
     }
     
     override func configureNavigationBar() {
-        navigationItem.title = "마감일 고르기"
+        navigationItem.title = "마감일 설정하기"
     }
     
     override func addSubviews() {

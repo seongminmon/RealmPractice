@@ -52,7 +52,7 @@ final class ToDoRepository {
     func fetchFiltered(sortOption: SortOption) -> Results<ToDo> {
         let objects = fetchAll()
         switch sortOption {
-        case .today:
+        case .today: // 마감일 => 오늘
             let date = Date()
             let calendar = Calendar.current
             
@@ -67,7 +67,7 @@ final class ToDoRepository {
 //                calendar.isDateInToday($0.date)
 //            }
             
-        case .coming:
+        case .coming: // 마감일 => 예정
             let date = Date()
             let calendar = Calendar.current
             
@@ -82,18 +82,15 @@ final class ToDoRepository {
 //                calendar.isDateInTomorrow($0.date)
 //            }
             
-        case .total:
-            // 전체 목록
+        case .total: // 전체 목록
             return objects
             
-        case .flag:
-            // 깃발이 설정된 목록
+        case .flag: // 깃발이 설정된 목록
             return objects.where {
                 $0.flag
             }
             
-        case .completed:
-            // 할 일이 완료된 목록
+        case .completed: // 할 일이 완료된 목록
             return objects.where {
                 $0.isComplete
             }

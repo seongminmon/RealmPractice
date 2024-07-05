@@ -108,6 +108,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         let item = sortedTodos[indexPath.row]
         
         let flag = UIContextualAction(style: .normal, title: nil) { _, _, success in
+            // 깃발 표시 토글
             self.repository.toggleFlagItem(item)
             // '깃발 표시' 일 때는 테이블뷰에서 없애주기
             if self.sortOption == .flag {
@@ -118,7 +119,8 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         flag.image = UIImage(systemName: "flag.fill")!
         flag.backgroundColor = .systemYellow
         
-        let delete = UIContextualAction(style: .normal, title: nil) { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+        let delete = UIContextualAction(style: .normal, title: nil) { _, _, success in
+            // 삭제
             self.repository.deleteItem(item)
             tableView.deleteRows(at: [indexPath], with: .fade)
             success(true)
