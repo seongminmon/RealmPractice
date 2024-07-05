@@ -48,14 +48,6 @@ struct MainCollection {
     ]
 }
 
-enum SortOption: CaseIterable {
-    case today
-    case coming
-    case total
-    case flag
-    case completed
-}
-
 final class MainViewController: BaseViewController {
     
     lazy var collectionView: UICollectionView = {
@@ -93,11 +85,6 @@ final class MainViewController: BaseViewController {
         super.viewDidLoad()
         print(repository.fileURL!)
         print("스키마 버전: \(repository.schemaVersion!)")
-        
-        // count 뷰 업데이트
-        repository.configureNotification {
-            self.collectionView.reloadData()
-        }
     }
     
     override func configureNavigationBar() {
@@ -148,6 +135,10 @@ final class MainViewController: BaseViewController {
     @objc func newTodoButtonClicked() {
         // 새로운 할 일 화면 띄우기
         let vc = WriteToDoViewController()
+        vc.realmNotify = {
+            print("Main", #function)
+            self.collectionView.reloadData()
+        }
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }
@@ -182,12 +173,17 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 할 일 리스트 화면 이동
         let vc = ToDoListViewController()
+        
         let naviTitle = MainCollection.list[indexPath.row].description
         vc.naviTitle = naviTitle
         
         let option = SortOption.allCases[indexPath.row]
         let filtered = repository.fetchFiltered(sortOption: option)
         vc.todos = filtered
+        
+        vc.realmNotify = {
+            self.collectionView.reloadData()
+        }
         
         navigationController?.pushViewController(vc, animated: true)
     }

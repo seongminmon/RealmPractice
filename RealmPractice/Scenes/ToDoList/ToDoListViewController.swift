@@ -22,6 +22,7 @@ final class ToDoListViewController: BaseViewController {
     
     var naviTitle: String?      // 이전 화면에서 전달
     var todos: Results<ToDo>!   // 이전 화면에서 filter된 채로 전달
+    var realmNotify: (() -> Void)?
     
     var sortedTodos: Results<ToDo>!
     let repository = ToDoRepository()
@@ -29,9 +30,12 @@ final class ToDoListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         sortedTodos = todos
-        repository.configureNotification {
-            self.tableView.reloadData()
-        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // 메인 뷰에 변경되었다고 알려주기
+        realmNotify?()
     }
     
     override func configureNavigationBar() {
@@ -117,6 +121,13 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         // 수정 화면으로 이동하기
         let vc = WriteToDoViewController()
         vc.todo = sortedTodos[indexPath.row]
+        vc.realmNotify = {
+            print("ToDoList", #function)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        vc.realmDeleteNotify = {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }

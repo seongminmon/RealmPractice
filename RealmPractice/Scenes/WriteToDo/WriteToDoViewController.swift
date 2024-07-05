@@ -38,6 +38,9 @@ final class WriteToDoViewController: BaseViewController {
     var closingDate: Date?
     var tag: String?
     var priority: Int?
+    
+    var realmNotify: (() -> Void)?
+    var realmDeleteNotify: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,6 +133,9 @@ final class WriteToDoViewController: BaseViewController {
         
         repository.addItem(todo)
         
+        // 메인뷰에 변경되었다고 알려주기
+        realmNotify?()
+        
         dismiss(animated: true)
     }
     
@@ -155,12 +161,14 @@ final class WriteToDoViewController: BaseViewController {
             priority: priority
         )
         
+        realmNotify?()   // list 뷰에 변경되었다고 알려주기
         dismiss(animated: true)
     }
     
     @objc func deleteButtonClicked() {
         presentAlert(title: "삭제", message: "정말 삭제하시겠습니까?", actionTitle: "삭제") { _ in
             self.repository.deleteItem(self.todo!)
+            self.realmDeleteNotify?()  // list 뷰에 변경되었다고 알려주기
             self.dismiss(animated: true)
         }
     }
