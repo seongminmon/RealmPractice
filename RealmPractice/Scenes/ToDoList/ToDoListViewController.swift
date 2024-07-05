@@ -97,15 +97,10 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         
         let data = sortedTodos[indexPath.row]
         cell.configureCell(data: data)
-        cell.completeButton.tag = indexPath.row
-        cell.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
+        cell.indexPath = indexPath
+        cell.delegate = self
+        
         return cell
-    }
-    
-    @objc func completeButtonClicked(sender: UIButton) {
-        let item = sortedTodos[sender.tag]
-        repository.toggleIsCompleteItem(item)
-        sender.tintColor = item.isComplete ? .systemBlue : .gray
     }
     
     // 스와이프 기능 (깃발 표시, 삭제)
@@ -114,7 +109,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         
         let flag = UIContextualAction(style: .normal, title: nil) { _, _, success in
             self.repository.toggleFlagItem(item)
-            // 깃발 표시일 때는 테이블뷰에서 없애주기
+            // '깃발 표시' 일 때는 테이블뷰에서 없애주기
             if self.sortOption == .flag {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
@@ -147,5 +142,21 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
+    }
+}
+
+extension ToDoListViewController: ToDoTableViewCellDelegate {
+    func completeButtonClicked(_ indexPath: IndexPath) {
+        let item = sortedTodos[indexPath.row]
+        repository.toggleIsCompleteItem(item)
+        
+        // TODO: row만 바꿀 수 있는 방법 찾아보기
+        // >>> row만 바꾸면 '완료됨'일때 indexPath 꼬임
+        tableView.reloadData()
+        
+        // '완료됨' 일 때는 테이블뷰에서 없애주기
+//        if sortOption == .completed {
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
     }
 }

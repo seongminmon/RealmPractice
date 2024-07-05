@@ -9,13 +9,18 @@ import UIKit
 import RealmSwift
 import SnapKit
 
+protocol ToDoTableViewCellDelegate {
+    func completeButtonClicked(_ indexPath: IndexPath)
+}
+
 final class ToDoTableViewCell: BaseTableViewCell {
     
-    let completeButton: UIButton = {
+    lazy var completeButton: UIButton = {
         var config = UIButton.Configuration.plain()
         config.image = UIImage(systemName: "circle.fill")
         config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -38,6 +43,9 @@ final class ToDoTableViewCell: BaseTableViewCell {
         label.textColor = .lightGray
         return label
     }()
+    
+    var delegate: ToDoTableViewCellDelegate?
+    var indexPath: IndexPath?
     
     override func addSubviews() {
         contentView.addSubview(completeButton)
@@ -93,5 +101,13 @@ final class ToDoTableViewCell: BaseTableViewCell {
         }
         dateLabel.text = dateText + tagText
         dateLabel.asColor(targetString: tagText, color: .systemBlue)
+    }
+    
+//    func configureButton() {
+//        completeButton.tintColor = data.isComplete ? .systemBlue : .gray
+//    }
+    
+    @objc func completeButtonClicked() {
+        delegate?.completeButtonClicked(indexPath!)
     }
 }
