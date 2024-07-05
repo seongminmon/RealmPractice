@@ -79,10 +79,7 @@ final class MainCollectionViewCell: BaseCollectionViewCell {
             make.leading.equalTo(imageContainerView.snp.trailing).offset(-8)
         }
     }
-    
-    override func configureView() {
-    }
-    
+
     func configureCell(count: Int, data: MainCollection) {
         countLabel.text = "\(count)"
         mainImageView.image = data.mainImage

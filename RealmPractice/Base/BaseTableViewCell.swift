@@ -21,15 +21,8 @@ class BaseTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addSubviews() {
-        
-    }
+    func addSubviews() {}
+    func configureLayout() {}
+    func configureView() {}
     
-    func configureLayout() {
-        
-    }
-    
-    func configureView() {
-        
-    }
 }

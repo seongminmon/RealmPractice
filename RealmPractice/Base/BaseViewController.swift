@@ -20,21 +20,10 @@ class BaseViewController: UIViewController {
         configureView()
     }
     
-    func configureNavigationBar() {
-        
-    }
-    
-    func addSubviews() {
-        
-    }
-    
-    func configureLayout() {
-        
-    }
-    
-    func configureView() {
-        
-    }
+    func configureNavigationBar() {}
+    func addSubviews() {}
+    func configureLayout() {}
+    func configureView() {}
     
     final func presentAlert(
         title: String,

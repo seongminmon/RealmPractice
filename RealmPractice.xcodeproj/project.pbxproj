@@ -92,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2497C57A2C37D61400995394 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				24B3BD792C33E7370088CDB7 /* MainViewController.swift */,
+				24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		24B3BD692C33E7370088CDB7 = {
 			isa = PBXGroup;
 			children = (
@@ -167,8 +176,7 @@
 		24B3BDAD2C35141A0088CDB7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				24B3BD792C33E7370088CDB7 /* MainViewController.swift */,
-				24B3BDBC2C3539FE0088CDB7 /* MainCollectionViewCell.swift */,
+				2497C57A2C37D61400995394 /* Main */,
 				24B3BD9F2C3401AB0088CDB7 /* ToDoList */,
 				24B3BD9E2C3401A30088CDB7 /* WriteToDo */,
 			);
