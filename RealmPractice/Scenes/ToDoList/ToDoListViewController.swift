@@ -20,16 +20,19 @@ final class ToDoListViewController: BaseViewController {
         return tableView
     }()
     
-    var naviTitle: String?      // 이전 화면에서 전달
-    var todos: Results<ToDo>!   // 이전 화면에서 filter된 채로 전달
+    // 이전 화면에서 전달
+    var naviTitle: String?
+    var sortOption: SortOption!
     var realmNotify: (() -> Void)?
     
-    var sortedTodos: Results<ToDo>!
     let repository = ToDoRepository()
+    var originTodos: Results<ToDo>!
+    var sortedTodos: Results<ToDo>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sortedTodos = todos
+        originTodos = repository.fetchFiltered(sortOption: sortOption)
+        sortedTodos = originTodos
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -44,17 +47,17 @@ final class ToDoListViewController: BaseViewController {
         // pull down 버튼 만들기
         let total = UIAction(title: "전체") { _ in
             print("전체")
-            self.sortedTodos = self.todos
+            self.sortedTodos = self.originTodos
             self.tableView.reloadData()
         }
         let titleSort = UIAction(title: "제목 순으로 보기") { _ in
             print("제목 순으로 보기")
-            self.sortedTodos = self.todos.sorted(byKeyPath: "title", ascending: true)
+            self.sortedTodos = self.originTodos.sorted(byKeyPath: "title", ascending: true)
             self.tableView.reloadData()
         }
         let dateSort = UIAction(title: "마감일 순으로 보기") { _ in
             print("마감일 순으로 보기")
-            self.sortedTodos = self.todos.sorted(byKeyPath: "closingDate", ascending: true)
+            self.sortedTodos = self.originTodos.sorted(byKeyPath: "closingDate", ascending: true)
             self.tableView.reloadData()
         }
         let cancel = UIAction(title: "취소") { _ in
@@ -76,9 +79,6 @@ final class ToDoListViewController: BaseViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-    
-    override func configureView() {
     }
 }
 
@@ -108,13 +108,30 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         sender.tintColor = item.isComplete ? .systemBlue : .gray
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // TODO: 스와이프로 깃발 표시 기능 구현하기
-        if editingStyle == .delete {
-            let item = sortedTodos[indexPath.row]
-            repository.deleteItem(item)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+    // 스와이프 기능 (깃발 표시, 삭제)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let item = sortedTodos[indexPath.row]
+        
+        let flag = UIContextualAction(style: .normal, title: nil) { _, _, success in
+            self.repository.toggleFlagItem(item)
+            // 깃발 표시일 때는 테이블뷰에서 없애주기
+            if self.sortOption == .flag {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            success(true)
         }
+        flag.image = UIImage(systemName: "flag.fill")!
+        flag.backgroundColor = .systemYellow
+        
+        let delete = UIContextualAction(style: .normal, title: nil) { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            self.repository.deleteItem(item)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            success(true)
+        }
+        delete.image = UIImage(systemName: "trash.fill")!
+        delete.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [delete, flag])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -129,9 +129,6 @@ final class MainViewController: BaseViewController {
         }
     }
     
-    override func configureView() {
-    }
-    
     @objc func newTodoButtonClicked() {
         // 새로운 할 일 화면 띄우기
         let vc = WriteToDoViewController()
@@ -178,8 +175,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         vc.naviTitle = naviTitle
         
         let option = SortOption.allCases[indexPath.row]
-        let filtered = repository.fetchFiltered(sortOption: option)
-        vc.todos = filtered
+        vc.sortOption = option
         
         vc.realmNotify = {
             self.collectionView.reloadData()
