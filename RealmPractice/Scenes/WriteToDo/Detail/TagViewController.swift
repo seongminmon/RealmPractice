@@ -37,7 +37,7 @@ final class TagViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        guard let data = textField.text else { return }
+        guard let data = textField.text, !data.isEmpty else { return }
         delegate?.sendTag(data: data)
     }
     
