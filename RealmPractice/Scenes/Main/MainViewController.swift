@@ -101,7 +101,9 @@ final class MainViewController: BaseViewController {
     
     @objc func calendarButtonClicked() {
         print(#function)
-        // TODO: 캘린더 뜨고, 선택한 날짜가 마감일인 할 일들 표시 FSCalendar
+        // TODO: FSCalendar 뜨고, 선택한 날짜가 마감일인 할 일들 표시
+        // fscalendar 상하 스와이프 시, 주 달력과 월 달력 변환되도록 구현
+        
     }
     
     override func addSubviews() {

@@ -13,6 +13,7 @@
 		2497C57C2C38266B00995394 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C57B2C38266B00995394 /* BaseView.swift */; };
 		2497C57E2C3826A100995394 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C57D2C3826A100995394 /* ContainerView.swift */; };
 		2497C5872C38FB3D00995394 /* ImageFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C5862C38FB3D00995394 /* ImageFileManager.swift */; };
+		2497C58A2C390C8A00995394 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 2497C5892C390C8A00995394 /* FSCalendar */; };
 		24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD752C33E7370088CDB7 /* AppDelegate.swift */; };
 		24B3BD782C33E7370088CDB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */; };
 		24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD792C33E7370088CDB7 /* MainViewController.swift */; };
@@ -90,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2497C56F2C358C7200995394 /* RealmSwift in Frameworks */,
+				2497C58A2C390C8A00995394 /* FSCalendar in Frameworks */,
 				24B3BD932C33EA0D0088CDB7 /* SnapKit in Frameworks */,
 				24B3BD902C33E9F40088CDB7 /* Toast in Frameworks */,
 			);
@@ -241,6 +243,7 @@
 				24B3BD8F2C33E9F40088CDB7 /* Toast */,
 				24B3BD922C33EA0D0088CDB7 /* SnapKit */,
 				2497C56E2C358C7200995394 /* RealmSwift */,
+				2497C5892C390C8A00995394 /* FSCalendar */,
 			);
 			productName = RealmPractice;
 			productReference = 24B3BD722C33E7370088CDB7 /* RealmPractice.app */;
@@ -274,6 +277,7 @@
 				24B3BD8E2C33E9F40088CDB7 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				24B3BD912C33EA0D0088CDB7 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2497C56D2C358C7200995394 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				2497C5882C390C8A00995394 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 24B3BD732C33E7370088CDB7 /* Products */;
 			projectDirPath = "";
@@ -559,6 +563,14 @@
 				version = 10.52.1;
 			};
 		};
+		2497C5882C390C8A00995394 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 		24B3BD8E2C33E9F40088CDB7 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift";
@@ -582,6 +594,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2497C56D2C358C7200995394 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		2497C5892C390C8A00995394 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2497C5882C390C8A00995394 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		24B3BD8F2C33E9F40088CDB7 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
