@@ -225,9 +225,7 @@ final class WriteToDoViewController: BaseViewController {
         presentAlert(title: "삭제", message: "정말 삭제하시겠습니까?", actionTitle: "삭제") { _ in
             
             // 이미지 삭제
-            if let image = self.selectedImageView.image {
-                ImageFileManager.shared.removeImageFromDocument(filename: "\(self.todo!.id)")
-            }
+            ImageFileManager.shared.removeImageFromDocument(filename: "\(self.todo!.id)")
             // Realm 삭제
             self.repository.deleteItem(self.todo!)
             

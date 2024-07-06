@@ -103,7 +103,8 @@ final class MainViewController: BaseViewController {
         print(#function)
         // TODO: FSCalendar 뜨고, 선택한 날짜가 마감일인 할 일들 표시
         // fscalendar 상하 스와이프 시, 주 달력과 월 달력 변환되도록 구현
-        
+        let vc = CalendarViewController()
+        present(vc, animated: true)
     }
     
     override func addSubviews() {
