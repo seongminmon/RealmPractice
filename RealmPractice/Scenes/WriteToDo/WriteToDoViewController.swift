@@ -143,6 +143,7 @@ final class WriteToDoViewController: BaseViewController {
         if let todo {
             writeView.titleTextField.text = todo.title
             writeView.contentsTextView.text = todo.contents
+            selectedImageView.image = ImageFileManager.shared.loadImageToDocument(filename: "\(todo.id)")
         }
     }
     
@@ -163,7 +164,6 @@ final class WriteToDoViewController: BaseViewController {
             contents = nil
         }
         
-        // Realm Create
         let todo = ToDo(
             title: title,
             contents: contents,
@@ -173,7 +173,13 @@ final class WriteToDoViewController: BaseViewController {
             date: Date()
         )
         
+        // Realm에 저장하기
         repository.addItem(todo)
+        
+        // 이미지 저장하기
+        if let image = selectedImageView.image {
+            ImageFileManager.shared.saveImageToDocument(image: image, filename: "\(todo.id)")
+        }
         
         // 메인뷰에 변경되었다고 알려주기
         realmNotify?()
@@ -194,6 +200,7 @@ final class WriteToDoViewController: BaseViewController {
             contents = nil
         }
         
+        // Realm에서 수정하기
         repository.updateItem(
             todo!,
             title: title,
@@ -203,13 +210,27 @@ final class WriteToDoViewController: BaseViewController {
             priority: priority
         )
         
+        // 이미지 수정하기
+        // (1) 원래 todo에 이미지가 없었다면 추가되고,
+        // (2) 기존 이미지가 있었다면 id가 동일하니까 교체됨
+        if let image = selectedImageView.image {
+            ImageFileManager.shared.saveImageToDocument(image: image, filename: "\(todo!.id)")
+        }
+        
         realmNotify?()   // list 뷰에 변경되었다고 알려주기
         dismiss(animated: true)
     }
     
     @objc func deleteButtonClicked() {
         presentAlert(title: "삭제", message: "정말 삭제하시겠습니까?", actionTitle: "삭제") { _ in
+            
+            // 이미지 삭제
+            if let image = self.selectedImageView.image {
+                ImageFileManager.shared.removeImageFromDocument(filename: "\(self.todo!.id)")
+            }
+            // Realm 삭제
             self.repository.deleteItem(self.todo!)
+            
             self.realmDeleteNotify?()  // list 뷰에 변경되었다고 알려주기
             self.dismiss(animated: true)
         }

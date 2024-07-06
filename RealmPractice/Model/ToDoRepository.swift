@@ -173,7 +173,4 @@ final class ToDoRepository {
             print("Realm Delete All!")
         }
     }
-    
-    // TODO: - 이미지 파일 매니저로 핸들링
-    
 }

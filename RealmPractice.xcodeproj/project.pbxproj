@@ -12,6 +12,7 @@
 		2497C5792C3685FB00995394 /* ToDoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C5782C3685FB00995394 /* ToDoRepository.swift */; };
 		2497C57C2C38266B00995394 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C57B2C38266B00995394 /* BaseView.swift */; };
 		2497C57E2C3826A100995394 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C57D2C3826A100995394 /* ContainerView.swift */; };
+		2497C5872C38FB3D00995394 /* ImageFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C5862C38FB3D00995394 /* ImageFileManager.swift */; };
 		24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD752C33E7370088CDB7 /* AppDelegate.swift */; };
 		24B3BD782C33E7370088CDB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */; };
 		24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD792C33E7370088CDB7 /* MainViewController.swift */; };
@@ -56,6 +57,7 @@
 		2497C5782C3685FB00995394 /* ToDoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRepository.swift; sourceTree = "<group>"; };
 		2497C57B2C38266B00995394 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2497C57D2C3826A100995394 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		2497C5862C38FB3D00995394 /* ImageFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileManager.swift; sourceTree = "<group>"; };
 		24B3BD722C33E7370088CDB7 /* RealmPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B3BD752C33E7370088CDB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				24B3BDA02C3401E20088CDB7 /* ToDo.swift */,
 				2497C5782C3685FB00995394 /* ToDoRepository.swift */,
+				2497C5862C38FB3D00995394 /* ImageFileManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				24B3BD9D2C33FF810088CDB7 /* WriteToDoDetailTableViewCell.swift in Sources */,
 				24B3BDB92C3537B10088CDB7 /* UILabel+.swift in Sources */,
 				24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */,
+				2497C5872C38FB3D00995394 /* ImageFileManager.swift in Sources */,
 				24B3BDB12C3515E70088CDB7 /* Date+.swift in Sources */,
 				24B3BDB72C351AE10088CDB7 /* PriorityViewController.swift in Sources */,
 				24B3BDAF2C35143C0088CDB7 /* ReuseIdentifierProtocol.swift in Sources */,
