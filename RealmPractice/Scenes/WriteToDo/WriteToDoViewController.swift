@@ -29,7 +29,17 @@ final class WriteToDoViewController: BaseViewController {
         tableView.dataSource = self
         tableView.register(WriteToDoTableViewCell.self, forCellReuseIdentifier: WriteToDoTableViewCell.identifier)
         tableView.rowHeight = 60
+        tableView.isScrollEnabled = false
         return tableView
+    }()
+    
+    let selectedImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .darkGray
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        return imageView
     }()
     
     let repository = ToDoRepository()
@@ -103,6 +113,38 @@ final class WriteToDoViewController: BaseViewController {
             navigationItem.rightBarButtonItems = [updateButton, deleteButton]
         }
     }
+
+    override func addSubviews() {
+        view.addSubview(writeView)
+        view.addSubview(tableView)
+        view.addSubview(selectedImageView)
+    }
+    
+    override func configureLayout() {
+        writeView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.equalTo(200)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(writeView.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(240)
+        }
+        
+        selectedImageView.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+        }
+    }
+    
+    override func configureView() {
+        if let todo {
+            writeView.titleTextField.text = todo.title
+            writeView.contentsTextView.text = todo.contents
+        }
+    }
     
     @objc func cancelButtonClicked() {
         dismiss(animated: true)
@@ -173,30 +215,6 @@ final class WriteToDoViewController: BaseViewController {
         }
     }
     
-    override func addSubviews() {
-        view.addSubview(writeView)
-        view.addSubview(tableView)
-    }
-    
-    override func configureLayout() {
-        writeView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(200)
-        }
-        
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(writeView.snp.bottom).offset(8)
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-    
-    override func configureView() {
-        if let todo {
-            writeView.titleTextField.text = todo.title
-            writeView.contentsTextView.text = todo.contents
-        }
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -261,8 +279,11 @@ extension WriteToDoViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(vc, animated: true)
             
         case .addImage:
-            // TODO: - PHPicker 갤러리에서 사진 선택하기
-            let config = PHPickerConfiguration(photoLibrary: .shared())
+            // PHPicker 갤러리에서 사진 선택하기
+            var config = PHPickerConfiguration()
+            config.selectionLimit = 1
+            config.filter = .any(of: [.screenshots, .images])   // 동영상 빼고 가져오기
+            
             let picker = PHPickerViewController(configuration: config)
             picker.delegate = self
             present(picker, animated: true)
@@ -280,8 +301,18 @@ extension WriteToDoViewController: TagDelegate {
 
 extension WriteToDoViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        print(#function)
+        // 1. itemProvider 가져오기, load 가능한지
+        if let itemProvider = results.first?.itemProvider,
+           itemProvider.canLoadObject(ofClass: UIImage.self) {
+            // 2. load하기
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                // 3. 비동기 처리
+                DispatchQueue.main.async {
+                    self.selectedImageView.image = image as? UIImage
+                }
+            }
+        }
+        // 4. dismiss
+        picker.dismiss(animated: true)
     }
-    
-    
 }

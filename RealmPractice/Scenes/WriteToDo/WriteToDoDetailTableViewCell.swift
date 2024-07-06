@@ -1,5 +1,5 @@
 //
-//  WriteToDoTableViewCell.swift
+//  WriteToDoDetailTableViewCell.swift
 //  RealmPractice
 //
 //  Created by 김성민 on 7/2/24.
@@ -42,7 +42,8 @@ final class WriteToDoTableViewCell: BaseTableViewCell {
     
     override func configureLayout() {
         containerView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView.safeAreaLayoutGuide).inset(8)
+            make.verticalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(8)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(16)
         }
         
         titleLabel.snp.makeConstraints { make in
