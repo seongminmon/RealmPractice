@@ -46,7 +46,7 @@ final class ToDoRepository {
     
     // MARK: - Read
     func fetchAll() -> Results<ToDo> {
-        return realm.objects(ToDo.self).sorted(byKeyPath: "date", ascending: false)
+        return todos.sorted(byKeyPath: "date", ascending: false)
     }
     
     func fetchFiltered(sortOption: SortOption) -> Results<ToDo> {
@@ -96,6 +96,22 @@ final class ToDoRepository {
             }
         }
         
+    }
+    
+    func fetchFilteredDate(_ date: Date) -> Results<ToDo> {
+        let objects = fetchAll()
+        var calendar = Calendar.current
+        calendar.locale = Locale(identifier: "ko-KR")
+        
+        let today = calendar.startOfDay(for: date)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        
+        print(today)
+        print(tomorrow)
+        
+        return objects.where {
+            $0.closingDate >= today && $0.closingDate < tomorrow
+        }
     }
     
     // MARK: - Update

@@ -24,6 +24,7 @@ final class ToDoListViewController: BaseViewController {
     var naviTitle: String?
     var sortOption: SortOption!
     var realmNotify: (() -> Void)?
+    var selectedDate: Date?
     
     let repository = ToDoRepository()
     var originTodos: Results<ToDo>!
@@ -31,7 +32,11 @@ final class ToDoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        originTodos = repository.fetchFiltered(sortOption: sortOption)
+        if let date = selectedDate {
+            originTodos = repository.fetchFilteredDate(date)
+        } else {
+            originTodos = repository.fetchFiltered(sortOption: sortOption)
+        }
         sortedTodos = originTodos
     }
     

@@ -100,11 +100,23 @@ final class MainViewController: BaseViewController {
     }
     
     @objc func calendarButtonClicked() {
-        print(#function)
-        // TODO: FSCalendar 뜨고, 선택한 날짜가 마감일인 할 일들 표시
-        // fscalendar 상하 스와이프 시, 주 달력과 월 달력 변환되도록 구현
+        // TODO: - fscalendar 상하 스와이프 시, 주 달력과 월 달력 변환되도록 구현
         let vc = CalendarViewController()
-        present(vc, animated: true)
+        vc.sendDate = { date in
+            // 할 일 리스트 화면 이동
+            let vc = ToDoListViewController()
+            
+            vc.naviTitle = date.dateToString()
+            vc.selectedDate = date
+            
+            vc.realmNotify = {
+                self.collectionView.reloadData()
+            }
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
     
     override func addSubviews() {

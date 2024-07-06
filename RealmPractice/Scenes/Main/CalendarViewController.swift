@@ -16,14 +16,17 @@ final class CalendarViewController: BaseViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarView.scope = .month
-        calendarView.locale = Locale(identifier: "ko_KR")
+        calendarView.locale = Locale(identifier: "ko-KR")
         
         // 선택되지 않은 날의 기본 컬러 설정
         calendarView.appearance.titleDefaultColor = .white
-        // 선택된 날의 컬러 설정
-//        calendarView.appearance.titleSelectionColor = .white
-        // today 컬러 설정
-//        calendarView.appearance.titleTodayColor = .black
+        
+        // 오늘 날짜 동그라미 없애기
+        calendarView.appearance.todayColor = .clear
+        
+        // 초기 날짜 지정
+        calendarView.setCurrentPage(Date(), animated: true)
+        calendarView.select(Date())
         
         // 헤더 폰트 설정
         calendarView.appearance.headerTitleFont = .systemFont(ofSize: 18, weight: .bold)
@@ -53,6 +56,21 @@ final class CalendarViewController: BaseViewController {
         return calendarView
     }()
     
+    var sendDate: ((Date) -> Void)?
+    
+    override func configureNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(selectButtonClicked))
+    }
+    
+    @objc func selectButtonClicked() {
+        print(#function)
+        // 선택한 날짜 넘겨주기
+        if let date = calendarView.selectedDate {
+            sendDate?(date)
+        }
+        dismiss(animated: true)
+    }
+    
     override func addSubviews() {
         view.addSubview(calendarView)
     }
@@ -70,5 +88,7 @@ final class CalendarViewController: BaseViewController {
 }
 
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
-    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print(#function, date)
+    }
 }
