@@ -101,9 +101,6 @@ final class MainViewController: BaseViewController {
     
     @objc func calendarButtonClicked() {
         let vc = CalendarViewController()
-//        vc.popUpAction = {
-//            self.view.backgroundColor = .black
-//        }
         vc.sendDate = { date in
             // 할 일 리스트 화면 이동
             let vc = ToDoListViewController()

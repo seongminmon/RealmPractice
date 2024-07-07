@@ -106,11 +106,14 @@ final class ToDoRepository {
         let today = calendar.startOfDay(for: date)
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
         
-        print(today)
-        print(tomorrow)
-        
         return objects.where {
             $0.closingDate >= today && $0.closingDate < tomorrow
+        }
+    }
+    
+    func fetchFilteredText(_ list: Results<ToDo>, _ text: String) -> Results<ToDo> {
+        return list.where {
+            $0.title.contains(text, options: .caseInsensitive) || $0.contents.contains(text, options: .caseInsensitive)
         }
     }
     

@@ -17,27 +17,32 @@ final class ToDoListViewController: BaseViewController {
         tableView.dataSource = self
         tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     
     // 이전 화면에서 전달
     var naviTitle: String?
     var sortOption: SortOption!
-    var realmNotify: (() -> Void)?
     var selectedDate: Date?
+    var realmNotify: (() -> Void)?
     
     let repository = ToDoRepository()
-    var originTodos: Results<ToDo>!
-    var sortedTodos: Results<ToDo>!
+    var originTodos: Results<ToDo>!     // sortOption으로 filter된 todos
+    var sortedTodos: Results<ToDo>!     // pull down 버튼으로 정렬시
+    var searchedTodos: Results<ToDo>!   // 서치바로 검색 시
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let date = selectedDate {
+            // main에서 FS캘린더에서 날짜 선택했을 때
             originTodos = repository.fetchFilteredDate(date)
         } else {
+            // main에서 컬렉션 뷰 셀 눌렀을 때
             originTodos = repository.fetchFiltered(sortOption: sortOption)
         }
         sortedTodos = originTodos
+        searchedTodos = sortedTodos
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -49,20 +54,31 @@ final class ToDoListViewController: BaseViewController {
     override func configureNavigationBar() {
         navigationItem.title = naviTitle
         
+        // searchController 설정
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "할 일을 검색해보세요."
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         // pull down 버튼 만들기
         let total = UIAction(title: "전체") { _ in
             print("전체")
             self.sortedTodos = self.originTodos
+            self.searchedTodos = self.sortedTodos
             self.tableView.reloadData()
         }
         let titleSort = UIAction(title: "제목 순으로 보기") { _ in
             print("제목 순으로 보기")
             self.sortedTodos = self.originTodos.sorted(byKeyPath: "title", ascending: true)
+            self.searchedTodos = self.sortedTodos
             self.tableView.reloadData()
         }
         let dateSort = UIAction(title: "마감일 순으로 보기") { _ in
             print("마감일 순으로 보기")
             self.sortedTodos = self.originTodos.sorted(byKeyPath: "closingDate", ascending: true)
+            self.searchedTodos = self.sortedTodos
             self.tableView.reloadData()
         }
         let cancel = UIAction(title: "취소") { _ in
@@ -89,7 +105,7 @@ final class ToDoListViewController: BaseViewController {
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedTodos.count
+        return searchedTodos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -100,7 +116,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let data = sortedTodos[indexPath.row]
+        let data = searchedTodos[indexPath.row]
         cell.configureCell(data: data)
         cell.indexPath = indexPath
         cell.delegate = self
@@ -110,7 +126,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 스와이프 기능 (깃발 표시, 삭제)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let item = sortedTodos[indexPath.row]
+        let item = searchedTodos[indexPath.row]
         
         let flag = UIContextualAction(style: .normal, title: nil) { _, _, success in
             // 깃발 표시 토글
@@ -139,7 +155,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 수정 화면으로 이동하기
         let vc = WriteToDoViewController()
-        vc.todo = sortedTodos[indexPath.row]
+        vc.todo = searchedTodos[indexPath.row]
         vc.realmNotify = {
             print("ToDoList", #function)
             tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -154,7 +170,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ToDoListViewController: ToDoTableViewCellDelegate {
     func completeButtonClicked(_ indexPath: IndexPath) {
-        let item = sortedTodos[indexPath.row]
+        let item = searchedTodos[indexPath.row]
         repository.toggleIsCompleteItem(item)
         
         // TODO: row만 바꿀 수 있는 방법 찾아보기
@@ -165,5 +181,18 @@ extension ToDoListViewController: ToDoTableViewCellDelegate {
 //        if sortOption == .completed {
 //            tableView.deleteRows(at: [indexPath], with: .fade)
 //        }
+    }
+}
+
+extension ToDoListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        print(#function, searchController.searchBar.text)
+        
+        if let text = searchController.searchBar.text, !text.isEmpty {
+            searchedTodos = repository.fetchFilteredText(sortedTodos, text)
+        } else {
+            searchedTodos = sortedTodos
+        }
+        tableView.reloadData()
     }
 }
