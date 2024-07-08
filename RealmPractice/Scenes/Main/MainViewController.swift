@@ -92,7 +92,7 @@ final class MainViewController: BaseViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "ellipsis.circle"), 
+            image: UIImage(systemName: "calendar"),
             style: .plain,
             target: self,
             action: #selector(calendarButtonClicked)

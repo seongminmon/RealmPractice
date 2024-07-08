@@ -15,6 +15,8 @@
 		2497C5872C38FB3D00995394 /* ImageFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C5862C38FB3D00995394 /* ImageFileManager.swift */; };
 		2497C58A2C390C8A00995394 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 2497C5892C390C8A00995394 /* FSCalendar */; };
 		2497C58C2C390CE400995394 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2497C58B2C390CE400995394 /* CalendarViewController.swift */; };
+		24AF66492C3C152200CCAAF4 /* FolderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AF66482C3C152200CCAAF4 /* FolderRepository.swift */; };
+		24AF664B2C3C152A00CCAAF4 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AF664A2C3C152A00CCAAF4 /* Folder.swift */; };
 		24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD752C33E7370088CDB7 /* AppDelegate.swift */; };
 		24B3BD782C33E7370088CDB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */; };
 		24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BD792C33E7370088CDB7 /* MainViewController.swift */; };
@@ -61,6 +63,8 @@
 		2497C57D2C3826A100995394 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		2497C5862C38FB3D00995394 /* ImageFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileManager.swift; sourceTree = "<group>"; };
 		2497C58B2C390CE400995394 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		24AF66482C3C152200CCAAF4 /* FolderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderRepository.swift; sourceTree = "<group>"; };
+		24AF664A2C3C152A00CCAAF4 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		24B3BD722C33E7370088CDB7 /* RealmPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B3BD752C33E7370088CDB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24B3BD772C33E7370088CDB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 		24B3BDAC2C3513EE0088CDB7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				24AF664A2C3C152A00CCAAF4 /* Folder.swift */,
+				24AF66482C3C152200CCAAF4 /* FolderRepository.swift */,
 				24B3BDA02C3401E20088CDB7 /* ToDo.swift */,
 				2497C5782C3685FB00995394 /* ToDoRepository.swift */,
 				2497C5862C38FB3D00995394 /* ImageFileManager.swift */,
@@ -314,11 +320,13 @@
 				24B3BD952C33EE7E0088CDB7 /* ToDoListViewController.swift in Sources */,
 				2497C57E2C3826A100995394 /* ContainerView.swift in Sources */,
 				24B3BDA82C3512AE0088CDB7 /* BaseViewController.swift in Sources */,
+				24AF664B2C3C152A00CCAAF4 /* Folder.swift in Sources */,
 				24B3BD7A2C33E7370088CDB7 /* MainViewController.swift in Sources */,
 				24B3BDAB2C3513CB0088CDB7 /* BaseTableViewCell.swift in Sources */,
 				24B3BD9D2C33FF810088CDB7 /* WriteToDoDetailTableViewCell.swift in Sources */,
 				24B3BDB92C3537B10088CDB7 /* UILabel+.swift in Sources */,
 				24B3BD762C33E7370088CDB7 /* AppDelegate.swift in Sources */,
+				24AF66492C3C152200CCAAF4 /* FolderRepository.swift in Sources */,
 				2497C5872C38FB3D00995394 /* ImageFileManager.swift in Sources */,
 				24B3BDB12C3515E70088CDB7 /* Date+.swift in Sources */,
 				24B3BDB72C351AE10088CDB7 /* PriorityViewController.swift in Sources */,

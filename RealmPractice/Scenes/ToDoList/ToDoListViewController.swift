@@ -186,7 +186,7 @@ extension ToDoListViewController: ToDoTableViewCellDelegate {
 
 extension ToDoListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print(#function, searchController.searchBar.text)
+        print(#function, searchController.searchBar.text!)
         
         if let text = searchController.searchBar.text, !text.isEmpty {
             searchedTodos = repository.fetchFilteredText(sortedTodos, text)
